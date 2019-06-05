@@ -9,6 +9,8 @@
 }
 
 * {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     outline: none;
     -webkit-box-sizing: border-box;
@@ -19,8 +21,20 @@ body {
     font-family: var(--general-font);
     padding: 0;
     margin: 0;
+    /* background: red; */
     /* background-color: grey; */
     /* background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX4+Pj09PQf/c7fAAAAGklEQVR4Xq3MIQEAAADDIPqX/kvMIMEWEm8O7b0/wewc/NcAAAAASUVORK5CYII=) repeat; */
+}
+
+main {
+    /* height: 100vh; */
+    position: relative;
+}
+
+main .content {
+    position: relative;
+    /* border: 1px solid green;
+    height: 100%; */
 }
 
 img {
@@ -32,9 +46,27 @@ img {
 
 nav {
     background-color: var(--nav-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: sticky;
     top: 0px;
-    z-index: 100;
+    z-index: 1000;
+}
+
+nav .logo {
+    height: 50px;
+    width: 50px;
+    margin-left: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+nav .logo p {
+    margin-left: 10px;
 }
 
 nav ul {
@@ -43,7 +75,7 @@ nav ul {
     justify-content: flex-end;
     align-items: center;
     height: 70px;
-    margin-right: 50px;
+    margin-right: 40px;
 }
 
 
@@ -98,5 +130,55 @@ nav ul a {
     color: #fff;
     padding: 13px 30px;
     font-size: 16px;
-    margin-right: 15px;
+    /* margin-right: 15px; */
+}
+
+
+/* this is for messages */
+
+main .messages {
+    /* position: absolute;
+    top: 50; */
+    /* background-color: red; */
+    /* text-align: center; */
+}
+
+main .messages ul {
+    list-style: none;
+    /* position: absolute; */
+    width: 100%;
+}
+
+main .messages ul li {
+    margin-bottom: 10px;
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: 400;
+    list-style-type: square;
+    padding: 10px;
+}
+
+main .messages ul li.success {
+    background: rgb(73, 255, 27);
+    /* padding: 600px auto; */
+}
+
+main .messages ul li.danger {
+    background: firebrick
+        /* padding: 600px auto; */
+}
+
+main .messages ul li.error {
+    background: red
+        /* padding: 600px auto; */
+}
+
+main .messages ul li.info {
+    background: #ecb98b;
+    /* padding: 600px auto; */
+}
+
+main .messages ul li p {
+    padding: 40px auto;
 }

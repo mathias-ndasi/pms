@@ -1,59 +1,131 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load static %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
+<link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/footer.css' %}" />{% endblock css %}
+
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<div class="content">
+  <div class="signup_container">
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  <!--{{ form.as_p }}-->
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      <div class="form_content">
+        <div class="img">
+          <img src="{% static 'accounts/img/login.png' %}" alt="imgage" />
+        </div>
 
+        <div class="group">
+          <span class="icon"><i class="fa fa-envelope"></i></span>
+          {{ form.email }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          <div class="alert_error">
+            {{ form.email.errors }}
+          </div>
+        </div>
 
-  <p>
-    {{ form.email.errors }}
-    {{ form.email.label }}
-    {{ form.email }}
-  </p>
-  <p>
-    {{ form.first_name.errors }}
-    {{ form.first_name.label }}
-    {{ form.first_name }}
-  </p>
-  <p>
-    {{ form.last_name.errors }}
-    {{ form.last_name.label }}
-    {{ form.last_name }}
-  </p>
-  <p>
-    {{ form.address.errors }}
-    {{ form.address.label }}
-    {{ form.address }}
-  </p>
-  <p>
-    {{ form.phone.errors }}
-    {{ form.phone.label }}
-    {{ form.phone }}
-  </p>
-  <p>
-    {{ form.password1.errors }}
-    {{ form.password1.label }}
-    {{ form.password1 }}
-  </p>
-  <p>
-    {{ form.password2.errors }}
-    {{ form.password2.label }}
-    {{ form.password2 }}
-  </p>
+        <div class="group">
+          <span class="icon"><i class="fa fa-user"></i></span>
+          {{ form.first_name }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+          <div class="alert_error">
+            {{ form.first_name.errors }}
+          </div>
+        </div>
 
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+        <div class="group">
+          <span class="icon"><i class="fa fa-user"></i></span>
+          {{ form.last_name }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+          <div class="alert_error">
+            {{ form.last_name.errors }}
+          </div>
+        </div>
+
+        <div class="group">
+          <span class="icon"><i class="fa fa-book"></i></span>
+          {{ form.address }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+          <div class="alert_error">
+            {{ form.address.errors }}
+          </div>
+        </div>
+
+        <div class="group">
+          <span class="icon"><i class="fa fa-phone"></i></span>
+          {{ form.phone }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+          <div class="alert_error">
+            {{ form.phone.errors }}
+          </div>
+          <span class="helptext">Number must be in format: +237654686473</span>
+        </div>
+
+        <div class="group">
+          <span class="icon"><i class="fa fa-lock"></i></span>
+          {{ form.password1 }}
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+          <div class="alert_error">
+            {{ form.password1.errors }}
+          </div>
+        </div>
+
+        <div class="group">
+          <span class="icon"><i class="fa fa-lock"></i></span>
+          <input type="password" name="password2" required id="id_password2" placeholder="Confim Password">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label for="{{ form.password2.id_for_label }}">Confim Password</label>
+          <div class="alert_error">
+            {{ form.password2.errors }}
+          </div>
+        </div>
+
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+
+        <div class="submit">
+          <button type="submit">{% trans "SignUp" %}</button>
+        </div>
+
+        <p class="p_signin">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign
+            in</a>.{% endblocktrans %}
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_body %}
+
+{% include "core/base/footer.html" %}
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'accounts/js/signup.js' %}"></script>
 
 {% endblock %}

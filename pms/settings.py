@@ -196,7 +196,7 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 #django-allauth registraion settings
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 7
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 50
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400 # 1 day
 ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login/' #or any other page
 LOGIN_REDIRECT_URL = '/home/' # redirects to profile page if not configured.

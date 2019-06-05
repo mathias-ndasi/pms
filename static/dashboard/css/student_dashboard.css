@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100|Poppins:200|ZCOOL+KuaiLe');
+
+
+/* Here is the content */
+
+main {
+    padding: 0 15px;
+}
+
+.my_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.block {
+    color: #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 350px;
+    height: 210px;
+    padding: 10px;
+    background-color: #313348;
+    margin: 30px 0;
+    cursor: pointer;
+    transition: transform 0.2s ease-in;
+}
+
+.block-middle {
+    margin: auto 70px;
+}
+
+.block:hover {
+    transform: scale(1.02);
+    z-index: 1000;
+}
+
+.block .one {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block .one i {
+    font-size: 50px;
+}
+
+.block .one div:first-child {
+    width: 60px;
+    height: 50px;
+}
+
+.block .number {
+    font-size: 40px;
+}

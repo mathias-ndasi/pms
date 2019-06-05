@@ -24,6 +24,10 @@
     {% block body %}
 
     <nav class="nav">
+      <div class="logo">
+        <img src="{% static 'base/img/logo.png' %}" alt="logo">
+        <p>pms</p>
+      </div>
       <ul>
         {% if user.is_authenticated %}
         <li>
@@ -52,16 +56,16 @@
           <a href="#">Settings</a>
           <span class="bar"></span>
         </li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a>
+        <li><a href="{% url 'account_logout' %}">Logout</a>
           <span class="bar"></span>
         </li>
         {% else %}
         <li>
-          <a href="{% url 'account_login' %}">Sign In</a>
+          <a href="{% url 'account_login' %}">Login</a>
           <span class="bar"></span>
         </li>
         <li>
-          <a href="{% url 'account_signup' %}">Sign Up</a>
+          <a href="{% url 'account_signup' %}">SignUp</a>
           <span class="bar"></span>
         </li>
         {% endif %}
@@ -69,10 +73,9 @@
     </nav>
 
     {% if messages %}
-    <div>
-      <strong>Messages:</strong>
+    <div class="messages">
       {% if messages %}
-      <ul class="messages">
+      <ul>
         {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
           {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
@@ -86,13 +89,16 @@
 
     {% block content %}
     {% endblock %}
-
+    <!-- <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, obcaecati doloremque quia vero iusto alias
+      error tenetur quis temporibus dolorem blanditiis facere beatae fugiat, aliquid, autem eligendi reprehenderit optio
+      dolorum!</p> -->
     {% endblock %}
 
     {% block extra_body %}
     {% endblock %}
 
   </main>
+
 
   {% block js %}{% endblock %}
 

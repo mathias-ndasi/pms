@@ -26,6 +26,7 @@ def drug_count_pharmacy(request):
             return {'available': 'False'}
 
     else:
+        messages.info(request, "this is info")
         return {'available': 'False'}
 
 

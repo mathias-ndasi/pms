@@ -1,0 +1,262 @@
+.content {
+    /* background-image: url("{% static 'accounts/img/bg.jpg' %}") */
+}
+
+.signup_container {
+    /* background: red; */
+    border: 1px solid rgb(87, 82, 82);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/accounts/img/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* border: none; */
+}
+
+.signup_container .alert_error {
+    color: red;
+    margin: 8px auto;
+}
+
+.signup_container .alert_error ul {
+    list-style: none;
+}
+
+.signup_container .helptext {
+    color: green;
+    font-size: 14px;
+}
+
+.signup_container .alert button {
+    background: none;
+    outline: none;
+    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.signup_container form {
+    display: block;
+}
+
+/* form starting stylings ------------------------------- */
+
+.signup_container .group {
+    position: relative;
+    margin: 15px auto;
+    /* border: 1px solid black; */
+}
+
+.signup_container .form_content {
+    margin: 30px auto;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 550px;
+    padding: 20px 30px 20px 30px;
+    background-color: #fff;
+    opacity: 0.93;
+    filter: alpha(opacity=93);
+}
+
+.signup_container .form_content .img {
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.signup_container input {
+    font-size: 18px;
+    padding: 10px 10px 10px 50px;
+    display: block;
+    width: 400px;
+    border: none;
+    border-bottom: 1px solid #757575;
+}
+
+.signup_container legend {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.signup_container .icon {
+    position: absolute;
+    top: 23%;
+    left: 8px;
+    /* bottom: 50%; */
+    transform: translateY(-23%);
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5)
+        /* margin-right: 40px; */
+}
+
+.signup_container .icon i {
+    font-size: 18px;
+}
+
+.signup_container input:focus {
+    outline: none;
+}
+
+/* LABEL ======================================= */
+
+.signup_container label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 50px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+/* active state */
+
+.signup_container input:focus~label,
+.signup_container input:valid~label {
+    top: -20px;
+    left: 5px;
+    font-size: 14px;
+    color: #5264AE;
+}
+
+/* BOTTOM BARS ================================= */
+
+.signup_container .bar {
+    position: relative;
+    display: block;
+    width: 400px;
+}
+
+.signup_container .bar:before,
+.signup_container .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: var(--default-color);
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.signup_container .bar:before {
+    left: 50%;
+}
+
+.signup_container .bar:after {
+    right: 50%;
+}
+
+/* active state */
+
+.signup_container input:focus~.bar:before,
+.signup_container input:focus~.bar:after {
+    width: 50%;
+}
+
+.signup_container input:focus {
+    border: none;
+}
+
+/* HIGHLIGHTER ================================== */
+
+.signup_container .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.1;
+}
+
+/* active state */
+
+.signup_container input:focus~.highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+.signup_container .submit {
+    /* border: 1px solid black; */
+    justify-self: flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 400px; */
+    /* margin-top: 40px; */
+    padding-top: 10px;
+    margin: auto;
+}
+
+.signup_container .submit a {
+    display: block;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.7);
+    margin-right: 150px;
+}
+
+.signup_container .submit a:hover {
+    color: var(--default-color);
+}
+
+.signup_container .submit button {
+    border: none;
+    border-radius: 10px;
+    background-color: var(--default-color);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 13px 50px;
+}
+
+.signup_container .submit button:hover {
+    background-color: #21d9de;
+}
+
+.signup_container .p_signin {
+    margin: 20px auto;
+}
