@@ -1,7 +1,6 @@
-
-
-    <form method="get" action="{% url 'search:list' %}">
-        <input type="search" placeholder="Search" name="q" value="{{ request.GET.q }}">
-        <input type="submit" value="search">
-    </form>
-
+<form method="get" action="{% url 'search:list' %}">
+    <input type="text" placeholder="Search Drug" name="q" value="{{ request.GET.q }}" autocomplete="off">
+    <button type="submit">
+        <i class="fa fa-search"></i>
+    </button>
+</form>

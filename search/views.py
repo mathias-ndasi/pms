@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.views import generic
 
 from drug.models import Drugs
+from core.models import Pharmacy
 
 
 class ProductSearchListView(LoginRequiredMixin, generic.ListView):
@@ -16,6 +17,8 @@ class ProductSearchListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(ProductSearchListView, self).get_context_data(**kwargs)
         context['query'] = self.request.GET.get('q')
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
         return context
 
     def get_queryset(self):

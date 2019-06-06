@@ -1,20 +1,60 @@
-{% extends "account/base.html" %}
+{% extends "base_dashboard.html" %} {% load i18n %} {% load static %}
+{% block title %}{% trans "Register Pharmacy" %}{% endblock %}
 
-{% load i18n %}
+{% block css %}
 
-{% block head_title %}{% trans "Create Pharmacy" %}{% endblock %}
-
-{% block content %}
-
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Create">
-    </form>
 
 {% endblock %}
 
+{% block content %}
 
-{% block extra_body %}
+<h1 style="color: #fff">Register Pharmacy</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="group">
+        <span class="icon"><i class="fa fa-envelope"></i></span>
+        {{ form.name }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+        <div class="alert_error">
+            {{ form.name.errors }}
+        </div>
+    </div>
+
+    <div class="group">
+        <span class="icon"><i class="fa fa-phone"></i></span>
+        {{ form.phone }}
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+        <div class="alert_error">
+            {{ form.phone.errors }}
+        </div>
+    </div>
+
+    <!-- displaying hidden input fields -->
+    {% for hidden_field in form.hidden_fields %}
+    {% if hidden_field.errors %}
+    <ul>
+        {% for error in hidden_field.errors %}
+        <li>(Hidden Field {{ hidden_field.name }}) {{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {{ hidden_field }}
+    {% endfor %}
+
+
+
+    <input type="submit" value="Register">
+</form>
+
+{% endblock %}
+
+{% block js %}
+
 
 {% endblock %}

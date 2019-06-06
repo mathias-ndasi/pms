@@ -22,6 +22,16 @@ class DrugRegister(LoginRequiredMixin, generic.CreateView):
     template_name = 'drug/register.html'
     model = Drugs
     form_class = DrugRegistration
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        # print(context.get('pharmacy'))
+        return context
+
+
     # initial =
 
     # # overridding form field input
@@ -136,7 +146,12 @@ class DrugDelete(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Delet
 @login_required(login_url=reversed('account_login'))
 @pharmacist_required_permission
 def add_to_cart(request, slug):
-    drug = get_object_or_404(Drugs, slug=slug)
+    try:
+        drug = Drugs.objects.get(slug=slug)
+    except Drugs.DoesNotExist:
+        messages.error(request, "Can't be added to cart")
+        return redirect('drug:detail', slug=slug)
+
     order_drug, created = OrderDrugs.objects.get_or_create(drug=drug, user=request.user, ordered=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
 
@@ -224,11 +239,16 @@ class OrderSummary(LoginRequiredMixin, PharmacistPermissionRequiredMixin, generi
             for drug in order.drugs.all():
                 total += drug.get_final_price()
 
-            context = {'drug': order, 'total': total}
+            context = {
+                'drug': order,
+                'total': total,
+                'pharmacy': Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0],
+                'pharmacy_drugs': Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+                }
             return render(self.request, 'drug/order_summary.html', context)
         except ObjectDoesNotExist:
             messages.error(self.request, "You don not have an active order")
-            return redirect('/')
+            return redirect('home')
 
 
 # view drugs present in my pharmacy
@@ -243,6 +263,13 @@ class DrugsPharmacy(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Li
         pharmacy = Pharmacy.objects.get(name=self.request.user.pharmacyuser.works_at)
         drugs = Drugs.objects.filter(added_by=request.user, pharmacy=pharmacy)
         return drugs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        # print(context.get('pharmacy'))
+        return context
 
 
 # get the list of expired drugs for a given pharmacy
@@ -269,3 +296,10 @@ class DrugsExpired(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Lis
 
             if difference < 0:
                 return Drugs.objects.filter(expiry_date=expiry_date)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        # print(context.get('pharmacy'))
+        return context

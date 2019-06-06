@@ -36,18 +36,17 @@
         </li>
         {% if request.user.is_pharmacist %}
         <li>
-          <a href="{% url 'drug:order_summary' %}"><span>{{ request.user|cart_item_count }}</span> Cart</a>
+          <a href="{% url 'drug:order_summary' %}"><span>{{ request.user|cart_item_count }}</span><i
+              class="fa fa-shopping-cart"></i> Cart</a>
           <span class="bar"></span>
         </li>
         {% endif %}
+        {% if request.user.is_pharmacist or request.user.is_admin %}
         <li>
-          <a href="{% url 'core:pharmacy_create' %}">Create Pharmacy</a>
+          <a href="{% url 'home' %}">Dashboard</a>
           <span class="bar"></span>
         </li>
-        <li>
-          <a href="{% url 'account_email' %}">Change E-mail</a>
-          <span class="bar"></span>
-        </li>
+        {% endif %}
         <li>
           <a href="{% url 'core:profile' name=request.user.first_name %}">Profile</a>
           <span class="bar"></span>
@@ -56,10 +55,12 @@
           <a href="#">Settings</a>
           <span class="bar"></span>
         </li>
-        <li><a href="{% url 'account_logout' %}">Logout</a>
+        <li>
+          <a href="{% url 'account_logout' %}">Logout</a>
           <span class="bar"></span>
         </li>
         {% else %}
+
         <li>
           <a href="{% url 'account_login' %}">Login</a>
           <span class="bar"></span>

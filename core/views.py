@@ -1,18 +1,47 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
-from django.urls import reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views import generic
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from core.permissions.mixins import AdminPermissionRequiredMixin, PharmacistPermissionRequiredMixin, admin_required_permission, pharmacist_required_permission
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.gis.geoip2.resources import City
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.views import generic
 
 from core import forms
-from core.models import User, Pharmacy, PharmacyUser
+from core.models import Pharmacy, PharmacyUser, User
+from core.permissions.mixins import (AdminPermissionRequiredMixin,
+                                     PharmacistPermissionRequiredMixin,
+                                     admin_required_permission,
+                                     pharmacist_required_permission)
+from drug.models import Drugs
 
+# class BaseIndexView(LoginRequiredMixin, PharmacistPermissionRequiredMixin, AdminPermissionRequiredMixin, generic.TemplateView):
+#     template_name = "base_dashboard.html"
+#     model = Drugs
+#     paginate_by = 5
+#     context_object_name = 'drugs'
+#     queryset = Drugs.objects.all()
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+#         context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+#         # print(context.get('pharmacy'))
+#         return context
 
 class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = "core/index.html"
+    model = Drugs
+    paginate_by = 5
+    context_object_name = 'drugs'
+    queryset = Drugs.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        # print(context.get('pharmacy'))
+        return context
 
 
 class UserProfile(LoginRequiredMixin, generic.TemplateView):
@@ -56,6 +85,22 @@ class PharmacyRegister(LoginRequiredMixin, AdminPermissionRequiredMixin, generic
     model = Pharmacy
     form_class = forms.PharmacyCreateForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        # print(context.get('pharmacy'))
+        return context
+
+   # overridding form field input
+    def get_initial(self):
+        initial = super(PharmacyRegister, self).get_initial()
+        self.kwargs['location'] = self.request.user.pharmacyuser.works_at.location
+        self.kwargs['city'] = self.request.user.pharmacyuser.city
+        initial['location'] = self.kwargs.get("location")
+        initial['city'] = self.kwargs.get("city")
+        return initial
+
     def form_valid(self, form):
         request = self.request
         form.save(commit=True)
@@ -75,14 +120,12 @@ class PharmacistList(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.L
         users = PharmacyUser.objects.filter(works_at=pharmacy)
         return users
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(PharmacistList, self).get_context_data(**kwargs)
-    #     pharmacy = Pharmacy.objects.get(name=self.request.user.pharmacyuser.works_at)
-    #     users = PharmacyUser.objects.filter(works_at=pharmacy)
-    #     context['user_email'] = users
-    #     new = context.get('pharmacy_users')
-    #     print(new)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        # print(context.get('pharmacy'))
+        return context
 
 
 @login_required(login_url=reversed('account_login'))

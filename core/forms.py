@@ -40,3 +40,4 @@ class PharmacyCreateForm(forms.ModelForm):
     class Meta:
         model = Pharmacy
         fields = '__all__'
+        widgets = {'location': forms.HiddenInput(), 'city': forms.HiddenInput()}

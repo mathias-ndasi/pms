@@ -1,0 +1,213 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'dashboard/css/nav.css' %}" />
+    <link rel="stylesheet" href="{% static 'dashboard/css/main_dashboard.css' %}" />
+
+    {% block css %}
+
+    {% endblock %}
+</head>
+
+<body>
+
+    <aside class="side-nav" id="show-side-navigation1">
+        <div class="heading">
+            <img src="{% static 'accounts/img/default_profile.jpg' %}" alt="profile_image">
+            <div class="info">
+                <h3><a href="dashboard-profile.html">{{ request.user.first_name }}</a></h3>
+                <p>Login as admin with Admin Dashboard</p>
+            </div>
+        </div>
+
+        <div class="search">
+            {% include 'search/snippets/search-form.html' %}
+            <!-- <i class="fa fa-search"></i> -->
+        </div>
+
+        <ul class="categories">
+
+            <li>
+                <i class="fa fa-medkit"></i>
+                <a href="#" class="arrow"> Drugs</a>
+                <ul class="side-nav-dropdown">
+
+                    {% if request.user.is_admin %}
+
+                    <li><a href="{% url 'drug:register' %}">New Drug</a></li>
+                    <li><a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}">My Drugs</a></li>
+                    <li><a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}">View expired Drugs</a></li>
+
+                    {% endif %}
+
+                    <li><a href="{% url 'drug:list' %}">All Drugs</a></li>
+
+                </ul>
+            </li>
+
+            {% if request.user.is_pharmacist %}
+
+            <li>
+                <i class="fa fa-shopping-cart"></i>
+                <a href="{% url 'drug:order_summary' %}">View Cart</a>
+            </li>
+
+            {% endif %}
+
+            {% if request.user.is_admin %}
+
+            <li>
+                <i class="fa fa-hospital-o"></i>
+                <a href="{% url 'core:pharmacy_create' %}">Register Pharmacy</a>
+            </li>
+
+            <li>
+                <i class="fa fa-group"></i>
+                <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}">View list of Pharmacists</a>
+            </li>
+
+            {% endif %}
+
+            <li>
+                <i class="fa fa-user"></i>
+                <a href="{% url 'core:profile' name=request.user.first_name %}">Profile</a>
+            </li>
+
+            <li>
+                <i class="fa fa-gear"></i>
+                <a href="#" class="arrow"> Settings</a>
+                <ul class="side-nav-dropdown">
+                    <li>
+                        <a class="" href="{% url 'account_change_password' %}">Change Password</a>
+                    </li>
+                    <li><a href="dashboard-change-email.html">Reset Email</a></li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+
+    <section id="contents">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header mynav">
+                <a class="navbar-brand" href="student_dashboard.html"><span class="main-color"><i
+                            class="fa fa-home fa-fw"></i></span>Dashboard</a>
+
+                <div class="count count-one">
+                    <p>Total Drugs: 5</p>
+                </div>
+
+                <div class="logout">
+                    <a href="{% url 'account_logout' %}">Logout</a>
+                    <span class="bar"></span>
+                </div>
+
+                <span class="drop-bar" id="drop_bar"><i class="fa fa-bars"></i></span>
+            </div>
+
+            <div class="drop_aside">
+
+                <div class="count count-two">
+                    <p>Total Drugs: 5</p>
+                </div>
+
+                <div class="search">
+                    {% include 'search/snippets/search-form.html' %}
+                </div>
+
+                <ul class="categories">
+
+                    <li>
+                        <i class="fa fa-medkit"></i>
+                        <a href="#" class="arrow"> Drugs</a>
+                        <ul class="resize-nav-dropdown">
+
+                            {% if request.user.is_admin %}
+
+                            <li><a href="{% url 'drug:register' %}">New Drug</a></li>
+                            <li><a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}">My Drugs</a></li>
+                            <li><a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}">View expired Drugs</a></li>
+
+                            {% endif %}
+
+                            <li><a href="{% url 'drug:list' %}">All Drugs</a></li>
+
+                        </ul>
+                    </li>
+
+                    {% if request.user.is_pharmacist %}
+
+                    <li>
+                        <i class="fa fa-shopping-cart"></i>
+                        <a href="{% url 'drug:order_summary' %}">View Cart</a>
+                    </li>
+
+                    {% endif %}
+
+                    {% if request.user.is_admin %}
+
+                    <li>
+                        <i class="fa fa-group"></i>
+                        <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}">View list of Pharmacists</a>
+                    </li>
+
+                    {% endif %}
+
+                    <li>
+                        <i class="fa fa-user"></i>
+                        <a href="{% url 'core:profile' name=request.user.first_name %}">Profile</a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-gear"></i>
+                        <a href="#" class="arrow"> Settings</a>
+                        <ul class="resize-nav-dropdown">
+                            <li>
+                                <a class="" href="{% url 'account_change_password' %}">Change Password</a>
+                            </li>
+                            <li><a href="dashboard-change-email.html">Reset Email</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <i class="fa fa-sign-out"></i>
+                        <a href="{% url 'account_logout' %}">Logout</a>
+                        <!-- <span class="bar"></span> -->
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+
+        <!-- this is where i'm starting -->
+        <main>
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+    </section>
+
+
+    <script src="{% static 'base/js/jquery.js' %}"></script>
+    <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+    <script src="{% static 'dashboard/js/main_dashboard.js' %}"></script>
+
+    {% block js %}
+
+    {% endblock %}
+
+</body>
+
+</html>

@@ -57,7 +57,7 @@ class DrugQueryset(models.query.QuerySet):
                 return self.filter(expiry_date=expiry_date)
 
     def search(self, query):
-        lookups = Q(generic_name__icontains=query) | Q(des__icontains=query) | Q(price__icontains=query)
+        lookups = Q(generic_name__icontains=query) | Q(brand_name__icontains=query) | Q(des__icontains=query) | Q(price__icontains=query)
         return self.filter(lookups).distinct()
 
 

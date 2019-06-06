@@ -1,190 +1,31 @@
-{% load static %}
+{% extends "base_dashboard.html" %} {% load i18n %} {% load static %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block css %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
 
-    <link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'dashboard/css/nav.css' %}" />
-    <link rel="stylesheet" href="{% static 'dashboard/css/student_dashboard.css' %}" />
-</head>
+{% endblock %}
 
-<body>
+{% block content %}
 
-    <aside class="side-nav" id="show-side-navigation1">
-        <div class="heading">
-            <img src="{% static 'dashboard/img/profile.jpg' %}" alt="profile_image">
-            <div class="info">
-                <h3><a href="dashboard-profile.html">Patricia</a></h3>
-                <p>Can't seem to rest because of internship</p>
+<div class="welcome">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content">
+                    <h2>Welcome to Dashboard</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <ul class="categories">
+<div class="my_content"></div>
 
-            <li>
-                <i class="fa fa-folder"></i>
-                <a href="#" class="arrow"> Application</a>
-                <ul class="side-nav-dropdown">
-                    <li><a href="dashboard-new-application.html">New Application</a></li>
-                    <li><a href="#">Old Application</a></li>
-                </ul>
-            </li>
+{% endblock %}
 
-            <li>
-                <i class="fa fa-file-text-o"></i>
-                <a href="#"> View Reslults</a>
-            </li>
-
-            <li>
-                <i class="fa fa-user"></i>
-                <a href="dashboard-profile.html"> Profile</a>
-            </li>
-
-            <li>
-                <i class="fa fa-gear"></i>
-                <a href="#" class="arrow"> Settings</a>
-                <ul class="side-nav-dropdown">
-                    <li><a href="dashboard-change-password.html">Change Password</a></li>
-                    <li><a href="dashboard-change-email.html">Change Email</a></li>
-                </ul>
-            </li>
-        </ul>
-    </aside>
-
-    <section id="contents">
-        <nav class="navbar navbar-default">
-            <div class="navbar-header mynav">
-                <a class="navbar-brand" href="student_dashboard.html"><span class="main-color"><i
-                            class="fa fa-home fa-fw"></i></span>Dashboard</a>
-
-                <form action="" method="post">
-                    <button type="submit"><span class="log-out"><i class="fa fa-sign-out"></i></span> Log
-                        out</button>
-                </form>
-
-                <span class="drop-bar" id="drop_bar"><i class="fa fa-bars"></i></span>
-            </div>
-
-            <div class="drop_aside">
-                <ul class="categories">
-
-                    <li>
-                        <i class="fa fa-folder"></i>
-                        <a href="#" class="arrow"> Application</a>
-                        <ul class="resize-nav-dropdown">
-                            <li><a href="dashboard-new-application.html">New Application</a></li>
-                            <li><a href="#">Old Application</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <i class="fa fa-file-text-o"></i>
-                        <a href="#"> View Reslults</a>
-                    </li>
-
-                    <li>
-                        <i class="fa fa-user"></i>
-                        <a href="dashboard-profile.html"> Profile</a>
-                    </li>
-
-                    <li>
-                        <i class="fa fa-gear"></i>
-                        <a href="#" class="arrow"> Settings</a>
-                        <ul class="resize-nav-dropdown">
-                            <li><a href="dashboard-change-password.html">Change Password</a></li>
-                            <li><a href="dashboard-change-email.html">Change Email</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-        </nav>
+{% block js %}
 
 
-        <!-- this is where i'm starting -->
-        <main>
-            <!-- body of the dashboard -->
-            <div class="welcome">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="content">
-                                <h2>Welcome to Dashboard</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="my_content">
-                <div class="block">
-                    <div class="one">
-                        <div>
-
-                            <img src="{% static 'dashboard/img/session_white.png' %}" alt="image">
-                        </div>
-                        <div>
-                            <p>Year</p>
-                            <p>2019</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="number">2</p>
-                    </div>
-                    <div>
-                        <p>Open Session</p>
-                    </div>
-                </div>
-                <div class="block block-middle" id="block-middle">
-                    <div class="one">
-                        <div>
-                            <i class="fa fa-folder-open"></i>
-                        </div>
-                        <div>
-                            <p>Year</p>
-                            <p>2019</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="number">1</p>
-                    </div>
-                    <div>
-                        <p>Application Forms</p>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="one">
-                        <div>
-                            <i class="fa fa-file-text-o"></i>
-                        </div>
-                        <div>
-                            <p>Year</p>
-                            <p>2019</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="number">5</p>
-                    </div>
-                    <div>
-                        <p>View Results</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </section>
-
-
-    <script src="{% static 'base/js/jquery.js' %}"></script>
-    <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
-    <script src="{% static 'dashboard/js/student-dashboard.js' %}"></script>
-
-</body>
-
-</html>
+{% endblock %}

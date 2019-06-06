@@ -4,7 +4,9 @@ $(function () {
 
   (function () {
 
-    let logout = document.querySelector('.mynav form');
+    let logout = document.querySelector('.mynav .logout');
+    let count_one = document.querySelector('.count-one');
+    let count_two = document.querySelector('.count-two');
     let drop_bar = document.querySelector('.drop-bar');
     let drop__bar = document.querySelector('#drop_bar');
     let drop__aside = document.querySelector('.drop_aside');
@@ -30,6 +32,8 @@ $(function () {
       logout.style.display = 'none';
       drop_bar.style.display = 'block';
 
+      count_one.style.display = 'none';
+      count_two.style.display = 'block';
     }
     $(window).on('resize', function () {
 
@@ -41,11 +45,17 @@ $(function () {
         drop_bar.style.display = 'none';
         drop__aside.style.display = 'none';
 
+        count_two.style.display = 'none';
+        count_one.style.display = 'block';
+
       } else {
         aside.addClass('show-side-nav');
         contents.addClass('margin');
         logout.style.display = 'none';
         drop_bar.style.display = 'block';
+
+        count_two.style.display = 'block';
+        count_one.style.display = 'none';
       }
 
     });

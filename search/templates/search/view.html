@@ -6,48 +6,58 @@
 
 {% block content %}
 
-    {% include 'search/snippets/search-form.html' %}<br>
+{% include 'search/snippets/search-form.html' %}<br>
+{% if query %}
+
+<h3>Searched for {{ query }}</h3>
+
+{% else %}
+
+{% include 'search/snippets/search-form.html' %}
+
+{% endif %}
+<p>Drug count: {{ drug_count }}</p>
+<br>
+
+{% if user.is_admin %}
+<a href="{% url 'drug:register' %}">New Drug</a>
+{% endif %}
+
+<div>
     {% if query %}
 
-        <h3>Searched for {{ query }}</h3>
+    {% for drug in drugs %}
+
+    {% if drug.image.url is not null %}
+    <img src="{{ drug.image.url }}" alt="image">
+    {% endif %}
+    <h1><a href="{% url 'drug:detail' slug=drug.slug %}">{{ drug.brand_name }}</a></h1>
+    <h4>{{ drug.generic_name }}</h4>
+
+    <p>{{ drug.des|truncatewords:10 }}</p>
+    <p>{{ drug.category }}</p>
+
+    {% if drug.discount_price %}
+    <p>{{ drug.discount_price }} CFA</p>
+    {% else %}
+    <p>{{ drug.price }} CFA</p>
+    {% endif %}
+
+    {% empty %}
+
+    <h2>{{ query }} not available</h2>
+
+    {% endfor %}
 
     {% else %}
 
-        {% include 'search/snippets/search-form.html' %}
+    <h3>{{ query }} does not exist</h3>
 
     {% endif %}
-    <p>Drug count: {{ drug_count }}</p>
-    <br>
 
-    {% if user.is_admin %}
-        <a href="{% url 'drug:register' %}">New Drug</a>
-    {% endif %}
+    <a href="{% url 'drug:list' %}">Go back to Drug list</a>
 
-    <div>
-        {% if query %}
-
-            {% for drug in drugs %}
-
-                <h2><a href="{% url 'drug:detail' slug=drug.slug%}">{{ drug.name }}</a></h2>
-                <p>{{ drug.des|truncatewords:10 }}</p>
-                <p>{{ drug.category }}</p>
-                <p>{{ drug.price_snippet }}</p>
-
-            {% empty %}
-
-            <h2>{{ query }} not available</h2>
-
-            {% endfor %}
-
-        {% else %}
-
-            <h3>{{ query }} does not exist</h3>
-
-        {% endif %}
-
-        <a href="{% url 'drug:list' %}">Go back to Drug list</a>
-
-    </div>
+</div>
 
 
 {% endblock %}

@@ -16,6 +16,9 @@ from pms import settings
 class City(models.Model):
     name = models.CharField(max_length=50)
 
+    created_on = models.DateTimeField(_('added on'), auto_now_add=True)
+    updated_on = models.DateTimeField(_('updated on'), auto_now=True)
+
     class Meta:
         verbose_name_plural = 'Cities'
 
@@ -27,8 +30,10 @@ class Pharmacy(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    # drugs = models.ForeignKey(Drug, on_delete=models.CASCADE)
     phone = PhoneNumberField(_('phone number'), blank=True, help_text=_('Number must be in international format.'))
+
+    created_on = models.DateTimeField(_('added on'), auto_now_add=True)
+    updated_on = models.DateTimeField(_('updated on'), auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Pharmacies'
@@ -73,7 +78,9 @@ class PharmacyUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     works_at = models.ForeignKey(Pharmacy, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+
     created_on = models.DateTimeField(_('added on'), auto_now_add=True)
+    updated_on = models.DateTimeField(_('updated on'), auto_now=True)
 
     # class Meta:
     #     unique_together = (('user', 'works_at'),)
@@ -88,7 +95,9 @@ class PharmacyUser(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name='profile')
     image = models.ImageField(upload_to='profile/', default='profile/default_profile.jpg')
-    # created_on = models.DateTimeField(_('added on'), auto_now_add=True)
+
+    created_on = models.DateTimeField(_('added on'), auto_now_add=True)
+    updated_on = models.DateTimeField(_('updated on'), auto_now=True)
 
     def __str__(self):
         return self.user.email
