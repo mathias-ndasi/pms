@@ -1,0 +1,83 @@
+.logout_container {
+    margin: 99.5px auto;
+    width: 30%;
+    border: 1px solid rgba(0, 0, 0, .25);
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 60px;
+}
+
+
+.logout_container p {
+    margin-bottom: 40px;
+}
+
+.logout_container div {
+    height: 200px;
+    margin-bottom: 30px;
+}
+
+.logout_container .button {
+    display: inline-block;
+    margin: 0.3em;
+    padding: 13px 50px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--default-color);
+}
+
+.logout_container .ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .25);
+    border-radius: 100%;
+    transform: scale(0.2);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-animation: ripple .75s ease-out;
+    -moz-animation: ripple .75s ease-out;
+    animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}

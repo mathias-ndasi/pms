@@ -1,21 +1,54 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load static %}
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
+<link rel="stylesheet" href="{% static 'accounts/css/logout.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/footer.css' %}" />
+
+{% endblock %}
+
 {% block content %}
-<h1>{% trans "Sign Out" %}</h1>
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
+<div class="content">
+  <div class="logout_container">
 
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
-</form>
+    <div>
+      <img src="{{ request.user.profile.image.url }}" alt="image">
+    </div>
 
+    <p>{{ request.user.first_name }}, are you sure you want to sign out?</p>
+
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+
+      <button class="button red" type="submit">
+        <span><i class="fa fa-sign-out"></i></span> Logout
+      </button>
+    </form>
+
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_body %}
+
+{% include "core/base/footer.html" %}
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'accounts/js/logout.js' %}"></script>
 
 {% endblock %}

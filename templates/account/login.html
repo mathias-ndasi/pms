@@ -55,8 +55,10 @@ account socialaccount %} {% block head_title %}{% trans "Sign In" %}{% endblock 
         {% endif %}
 
         <div class="submit">
-          <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-          <button class="primaryAction" type="submit">{% trans "Login" %}</button>
+          <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+          <button class="button red" type="submit">
+            <span><i class="fa fa-sign-in"></i></span> Login
+          </button>
         </div>
 
         <p class="p_signup">

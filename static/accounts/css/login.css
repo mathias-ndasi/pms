@@ -232,40 +232,96 @@
 }
 
 .login_container .submit {
-    /* border: 1px solid black; */
     justify-self: flex-start;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding-top: 5px;
+    padding-top: 10px;
+    width: 100%;
     margin: auto;
 }
 
 .login_container .submit a {
-    display: block;
+    display: inline-block;
     text-decoration: none;
     color: rgba(0, 0, 0, 0.7);
-    margin-right: 150px;
+    /* margin-right: 150px; */
 }
 
 .login_container .submit a:hover {
     color: var(--default-color);
 }
 
-.login_container .submit button {
-    border: none;
-    border-radius: 10px;
-    background-color: var(--default-color);
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 13px 50px;
-}
-
-.login_container .submit button:hover {
-    background-color: #21d9de;
-}
-
 .login_container .p_signup {
     margin: 40px auto;
+}
+
+.login_container .submit span {
+    margin-right: 5px;
+}
+
+/* ripple effect on button and links */
+.login_container .submit .button {
+    display: inline-block;
+    margin: 0.3em;
+    padding: 13px 50px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--default-color);
+}
+
+.login_container .submit .ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .25);
+    border-radius: 100%;
+    transform: scale(0.2);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-animation: ripple .75s ease-out;
+    -moz-animation: ripple .75s ease-out;
+    animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
 }
