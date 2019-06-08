@@ -178,7 +178,12 @@ def add_to_cart(request, slug):
 @login_required(login_url=reversed('account_login'))
 @pharmacist_required_permission
 def remove_from_cart(request, slug):
-    drug = get_object_or_404(Drugs, slug=slug)
+    try:
+        drug = Drugs.objects.get(slug=slug)
+    except Drugs.DoesNotExist:
+        messages.error(request, "Can't be removed from cart")
+        return redirect('drug:order_summary')
+
     order_qs = Order.objects.filter(user=request.user, ordered=False)
 
     if order_qs.exists():
@@ -201,7 +206,12 @@ def remove_from_cart(request, slug):
 @login_required(login_url=reversed('account_login'))
 @pharmacist_required_permission
 def remove_single_drug_from_cart(request, slug):
-    drug = get_object_or_404(Drugs, slug=slug)
+    try:
+        drug = Drugs.objects.get(slug=slug)
+    except Drugs.DoesNotExist:
+        messages.error(request, "Can't be removed from cart")
+        return redirect('drug:order_summary')
+        
     order_qs = Order.objects.filter(user=request.user, ordered=False)
 
     if order_qs.exists():

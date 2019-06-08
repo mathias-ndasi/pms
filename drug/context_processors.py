@@ -30,7 +30,7 @@ def drug_count_pharmacy(request):
         return {'available': 'False'}
 
 
-# alert super all expired drugs expired drugs
+# alert super user of all expired drugs in the system
 def drug_alert(request):
     if request.user.is_authenticated:
 
@@ -42,7 +42,7 @@ def drug_alert(request):
             expiry_date = drug.expiry_date
             difference = int(str(expiry_date - present_date).split()[0])  # gets the number of days difference
 
-            if request.user.is_superuser:
+            if request.user.is_admin:
 
                 if difference == 0:
                     expired_drugs.append({'drug': drug, 'days_left': 0})

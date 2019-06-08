@@ -90,7 +90,7 @@ TEMPLATES = [
                 'drug.context_processors.drug_count',
                 'drug.context_processors.drug_count_pharmacy',
                 'drug.context_processors.drug_alert',
-                'drug.context_processors.drug_alert_pharmacy',
+                # 'drug.context_processors.drug_alert_pharmacy',
             ],
         },
     },
