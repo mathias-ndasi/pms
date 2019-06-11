@@ -12,12 +12,13 @@
     margin-bottom: 40px;
 }
 
-.logout_container div {
+.logout_container .first {
     height: 200px;
     margin-bottom: 30px;
 }
 
-.logout_container .button {
+/* ripple effect on button and links */
+.logout_container .submit .button {
     display: inline-block;
     margin: 0.3em;
     padding: 13px 50px;
@@ -37,7 +38,7 @@
     background-color: var(--default-color);
 }
 
-.logout_container .ripple {
+.logout_container .submit .ripple {
     position: absolute;
     background: rgba(0, 0, 0, .25);
     border-radius: 100%;

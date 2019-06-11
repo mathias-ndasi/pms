@@ -29,6 +29,7 @@ from drug.models import Drugs
 #         # print(context.get('pharmacy'))
 #         return context
 
+
 class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = "core/index.html"
     model = Drugs
@@ -38,9 +39,10 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
-        # print(context.get('pharmacy'))
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         return context
 
 
@@ -49,10 +51,13 @@ class UserProfile(LoginRequiredMixin, generic.TemplateView):
     model = User
     queryset = User.objects.all()
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(UserProfile, self).get_context_data(**kwargs)
-    #     context['name'] = self.request.user.first_name
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(UserProfile, self).get_context_data(**kwargs)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
+        return context
 
 
 # editing user profile
@@ -60,7 +65,8 @@ class UserProfile(LoginRequiredMixin, generic.TemplateView):
 def profile(request):
     if request.method == 'POST':
         u_form = forms.UserProfile(request.POST, instance=request.user)
-        p_form = forms.ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = forms.ProfileForm(
+            request.POST, request.FILES, instance=request.user.profile)
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
@@ -74,7 +80,9 @@ def profile(request):
 
     context = {
         'form1': u_form,
-        'form2': p_form
+        'form2': p_form,
+        'pharmacy': Pharmacy.objects.filter(name=request.user.pharmacyuser.works_at)[0],
+        'pharmacy_drugs': Drugs.objects.filter(pharmacy=request.user.pharmacyuser.works_at)
     }
 
     return render(request, 'core/profile_update.html', context)
@@ -87,8 +95,10 @@ class PharmacyRegister(LoginRequiredMixin, AdminPermissionRequiredMixin, generic
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         # print(context.get('pharmacy'))
         return context
 
@@ -105,7 +115,8 @@ class PharmacyRegister(LoginRequiredMixin, AdminPermissionRequiredMixin, generic
         request = self.request
         form.save(commit=True)
         name = form.cleaned_data['name']
-        messages.success(request, f'{name} Pharmacy was successfully created!!!')
+        messages.success(
+            request, f'{name} Pharmacy was successfully created!!!')
         return super(PharmacyRegister, self).form_valid(form)
 
 
@@ -116,14 +127,17 @@ class PharmacistList(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.L
     context_object_name = 'pharmacy_users'
 
     def get_queryset(self):
-        pharmacy = Pharmacy.objects.get(name=self.request.user.pharmacyuser.works_at)
+        pharmacy = Pharmacy.objects.get(
+            name=self.request.user.pharmacyuser.works_at)
         users = PharmacyUser.objects.filter(works_at=pharmacy)
         return users
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         # print(context.get('pharmacy'))
         return context
 
@@ -135,13 +149,16 @@ def pharmacist_add(request):
         print(request.POST)
         user_id = request.POST.get('pharmacist_id')
         user = get_object_or_404(User, id=user_id)
-        pharmacy = Pharmacy.objects.get(name=request.user.pharmacyuser.works_at)
+        pharmacy = Pharmacy.objects.get(
+            name=request.user.pharmacyuser.works_at)
         if user.is_pharmacist:
             user.is_pharmacist = False
-            messages.success(request, f'{user.email} was successfully removed as a pharmacist to "{pharmacy}" pharmacy')
+            messages.success(
+                request, f'{user.email} was successfully removed as a pharmacist to "{pharmacy}" pharmacy')
         else:
             user.is_pharmacist = True
-            messages.success(request, f'{user.email} was successfully added as a pharmacist to "{pharmacy}" pharmacy')
+            messages.success(
+                request, f'{user.email} was successfully added as a pharmacist to "{pharmacy}" pharmacy')
         user.save()
         return redirect('core:pharmacist_list', pharmacy=pharmacy)
     else:

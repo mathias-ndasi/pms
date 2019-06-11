@@ -1,26 +1,26 @@
 $(function () {
 
-    'use strict';
+    // 'use strict';
 
-    (function () {
+    // (function () {
 
-        let middle = document.querySelector('#block-middle');
+    //     let middle = document.querySelector('#block-middle');
 
-        if ($(window).width() <= 767) {
-            middle.classList.remove('block-middle');
+    //     if ($(window).width() <= 767) {
+    //         middle.classList.remove('block-middle');
 
-        }
-        $(window).on('resize', function () {
+    //     }
+    //     $(window).on('resize', function () {
 
-            if ($(window).width() > 767) {
-                middle.classList.add('block-middle');
+    //         if ($(window).width() > 767) {
+    //             middle.classList.add('block-middle');
 
-            } else {
-                middle.classList.remove('block-middle');
-            }
+    //         } else {
+    //             middle.classList.remove('block-middle');
+    //         }
 
-        });
+    //     });
 
-    }());
+    // }());
 
 });

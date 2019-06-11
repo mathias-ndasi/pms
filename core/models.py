@@ -14,7 +14,8 @@ from pms import settings
 
 
 class City(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(
+        max_length=50)
 
     created_on = models.DateTimeField(_('added on'), auto_now_add=True)
     updated_on = models.DateTimeField(_('updated on'), auto_now=True)
@@ -27,10 +28,12 @@ class City(models.Model):
 
 
 class Pharmacy(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(
+        max_length=100, help_text="Enter the name of your pharmacy")
     location = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    phone = PhoneNumberField(_('phone number'), blank=True, help_text=_('Number must be in international format.'))
+    phone = PhoneNumberField(_('phone number'), blank=True, help_text=_(
+        'Number must be in format: +237654686473'))
 
     created_on = models.DateTimeField(_('added on'), auto_now_add=True)
     updated_on = models.DateTimeField(_('updated on'), auto_now=True)
@@ -50,10 +53,12 @@ class User(AbstractUser):
     is_pharmacist = models.BooleanField(default=False)
 
     # username = None
-    email = models.EmailField(unique=True, verbose_name='Email', help_text='Enter email')
+    email = models.EmailField(
+        unique=True, verbose_name='Email', help_text='Enter email')
     address = models.CharField(max_length=100, help_text='Enter your area of residence', verbose_name='Address',
                                blank=True, null=True)
-    phone = PhoneNumberField(_('phone number'), blank=True, help_text=_('Number must be in international format.'), null=True)
+    phone = PhoneNumberField(_('phone number'), blank=True, help_text=_(
+        'Number must be in international format.'), null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -93,8 +98,10 @@ class PharmacyUser(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name='profile')
-    image = models.ImageField(upload_to='profile/', default='profile/default_profile.jpg')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name='profile')
+    image = models.ImageField(upload_to='profile/',
+                              default='profile/default_profile.jpg')
 
     created_on = models.DateTimeField(_('added on'), auto_now_add=True)
     updated_on = models.DateTimeField(_('updated on'), auto_now=True)

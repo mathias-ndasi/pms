@@ -7,11 +7,15 @@ from core.models import User, Profile, Pharmacy
 
 
 class SignupForm(forms.Form):
-    email = forms.EmailField(widget=forms.TextInput(attrs={"class": "input_text", }), required=True,)
-    first_name = forms.CharField(max_length=20, widget=forms.TextInput(attrs={"class": "input_text", }), required=True,)
-    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={"class": "input_text", }), required=False)
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={"class": "input_text", }), required=True,)
+    first_name = forms.CharField(max_length=20, widget=forms.TextInput(
+        attrs={"class": "input_text", }), required=True,)
+    last_name = forms.CharField(max_length=30, widget=forms.TextInput(
+        attrs={"class": "input_text", }), required=False)
     address = forms.CharField(max_length=100)
-    phone = forms.CharField(help_text="Number must be in international format", label="Phone Number", max_length=30, widget=forms.TextInput(attrs={"class": "input_text", }))
+    phone = forms.CharField(help_text="Number must be in format: +237654686473", label="Phone Number",
+                            max_length=30, widget=forms.TextInput(attrs={"class": "input_text", }))
 
     class Meta:
         model = User
@@ -40,4 +44,5 @@ class PharmacyCreateForm(forms.ModelForm):
     class Meta:
         model = Pharmacy
         fields = '__all__'
-        widgets = {'location': forms.HiddenInput(), 'city': forms.HiddenInput()}
+        widgets = {'location': forms.HiddenInput(),
+                   'city': forms.HiddenInput()}

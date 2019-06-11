@@ -3,58 +3,65 @@
 
 {% block css %}
 
+<link rel="stylesheet" href="{% static 'accounts/css/pharmacy_create.css' %}" />
 
 {% endblock %}
 
 {% block content %}
 
-<h1 style="color: #fff">Register Pharmacy</h1>
+<div class="pharmacy_register">
 
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+    <h2 style="color: #fff">Register Pharmacy</h2>
 
-    <div class="group">
-        <span class="icon"><i class="fa fa-envelope"></i></span>
-        {{ form.name }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-        <div class="alert_error">
-            {{ form.name.errors }}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="group">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            <span class="icon"><i class="fa fa-edit"></i></span>
+            {{ form.name }}
+            <div class="alert_error">
+                {{ form.name.errors }}
+            </div>
+            <span class="helptext">{{ form.name.help_text }}</span>
         </div>
-    </div>
 
-    <div class="group">
-        <span class="icon"><i class="fa fa-phone"></i></span>
-        {{ form.phone }}
-        <span class="highlight"></span>
-        <span class="bar"></span>
-        <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
-        <div class="alert_error">
-            {{ form.phone.errors }}
+        <div class="group">
+            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+            <span class="icon"><i class="fa fa-phone"></i></span>
+            {{ form.phone }}
+            <div class="alert_error">
+                {{ form.phone.errors }}
+            </div>
+            <span class="helptext">{{ form.phone.help_text }}</span>
         </div>
-    </div>
 
-    <!-- displaying hidden input fields -->
-    {% for hidden_field in form.hidden_fields %}
-    {% if hidden_field.errors %}
-    <ul>
-        {% for error in hidden_field.errors %}
-        <li>(Hidden Field {{ hidden_field.name }}) {{ error }}</li>
+        <!-- displaying hidden input fields for Pharmacy location and city -->
+        {% for hidden_field in form.hidden_fields %}
+        {% if hidden_field.errors %}
+        <ul>
+            {% for error in hidden_field.errors %}
+            <li>(Hidden Field {{ hidden_field.name }}) {{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {{ hidden_field }}
         {% endfor %}
-    </ul>
-    {% endif %}
-    {{ hidden_field }}
-    {% endfor %}
 
 
+        <div class="submit">
+            <button class="button" type="submit">
+                <span><i class="fa fa-database"></i></span> Register
+            </button>
+        </div>
+    </form>
 
-    <input type="submit" value="Register">
-</form>
+</div>
 
 {% endblock %}
 
 {% block js %}
 
+<script src="{% static 'base/js/button.js' %}"></script>
 
 {% endblock %}

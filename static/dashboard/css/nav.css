@@ -48,6 +48,28 @@ img {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* Start welcome */
+
+.welcome {
+    color: #CCC;
+}
+
+.welcome .content {
+    background-color: #313348;
+    padding: 15px;
+    margin-top: 25px;
+}
+
+.welcome h2 {
+    font-family: Calibri;
+    font-weight: 100;
+    margin-top: 0
+}
+
+.welcome p {
+    color: #999;
+}
+
 #contents {
     position: relative;
     transition: .3s;
@@ -79,14 +101,6 @@ img {
     overflow: auto;
     z-index: 9999999
 }
-
-/* .side-nav .close-aside {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-    cursor: pointer;
-    color: #EEE;
-} */
 
 .side-nav .heading {
     background-color: #252636;
@@ -232,28 +246,6 @@ img {
 }
 
 /* End side navigation bar  */
-
-/* Start welcome */
-
-.welcome {
-    color: #CCC;
-}
-
-.welcome .content {
-    background-color: #313348;
-    padding: 15px;
-    margin-top: 25px;
-}
-
-.welcome h2 {
-    /* font-family: Calibri; */
-    font-weight: 100;
-    margin-top: 0
-}
-
-.welcome p {
-    color: #999;
-}
 
 /* Start bootstrap */
 

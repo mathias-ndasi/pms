@@ -36,8 +36,8 @@
         </li>
         {% if request.user.is_pharmacist %}
         <li>
-          <a href="{% url 'drug:order_summary' %}"><span>{{ request.user|cart_item_count }}</span><i
-              class="fa fa-shopping-cart"></i> Cart</a>
+          <a href="{% url 'drug:order_summary' %}"><span>{{ request.user|cart_item_count }} </span><i
+              class="fa fa-shopping-cart"></i></a>
           <span class="bar"></span>
         </li>
         {% endif %}

@@ -83,30 +83,27 @@ class DrugManager(models.Manager):
 
 class Drugs(models.Model):
     # name = models.CharField(max_length=100, help_text='name of drug')
-    brand_name = models.CharField(max_length=100, help_text='brand name', verbose_name='Brand name')
-    generic_name = models.CharField(max_length=100, help_text='scientific name', verbose_name='Generic name', blank=True, null=True)
-    des = models.TextField(max_length=1000, help_text='drug description', verbose_name='Description')
+    brand_name = models.CharField(max_length=100, help_text='This is the drug brand name', verbose_name='Brand name')
+    generic_name = models.CharField(max_length=100, help_text='Drug scientific name (optional)', verbose_name='Generic name', blank=True, null=True)
+    des = models.TextField(max_length=1000, verbose_name='Description')
     slug = models.SlugField(blank=True, unique=True)
-    image = models.ImageField(upload_to='images/', blank=True, null=True, help_text='please upload drug image here', default='images/default_drug.png')
+    image = models.ImageField(upload_to='images/', blank=True, null=True, help_text='please upload drug image here (optional)', default='images/default_drug.png')
     price = models.DecimalField(decimal_places=2, max_digits=20, default=0.00)
-    discount_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True)
-    batch_no = models.IntegerField(verbose_name='Batch Number')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    discount_price = models.DecimalField(decimal_places=2, max_digits=20, null=True, blank=True, help_text="Discount price is optional")
+    batch_no = models.IntegerField(verbose_name='Batch Number', help_text="Input batch number of the drug")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Select Category')
     pharmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE, default=None)
     city = models.ForeignKey(City, on_delete=models.CASCADE, default=None)
     active = models.BooleanField(default=True)
     added_by = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     entry_date = models.DateTimeField(auto_now_add=True)
-    expiry_date = models.DateField()
+    expiry_date = models.DateField(help_text="Date format: yyyy / mm / dd")
 
     created_on = models.DateTimeField(_('registration date'), auto_now_add=True)
     updated_on = models.DateTimeField(_('last updated'), auto_now=True)
 
     objects = DrugManager()
-
-    def get_absolute_url(self):
-        return reverse('drug:list')
 
     def get_add_to_cart_url(self):
         return reverse('drug:add_to_cart', kwargs={'slug': self.slug})

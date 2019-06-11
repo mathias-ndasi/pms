@@ -23,14 +23,18 @@ class DrugRegister(LoginRequiredMixin, generic.CreateView):
     model = Drugs
     form_class = DrugRegistration
 
+    def get_success_url(self):
+        pharmacy = self.kwargs.get('pharmacy')
+        return reverse('drug:pharmacy_drugs', kwargs={'pharmacy': pharmacy})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         # print(context.get('pharmacy'))
         return context
-
 
     # initial =
 
@@ -61,8 +65,10 @@ class DrugRegister(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         request = self.request
         form.instance.added_by = self.request.user
-        form.instance.pharmacy = Pharmacy.objects.filter(name=request.user.pharmacyuser.works_at)[0]
-        form.instance.city = City.objects.filter(name=self.request.user.pharmacyuser.city)[0]
+        form.instance.pharmacy = Pharmacy.objects.filter(
+            name=request.user.pharmacyuser.works_at)[0]
+        form.instance.city = City.objects.filter(
+            name=self.request.user.pharmacyuser.city)[0]
         form.save(commit=True)
         name = form.cleaned_data['brand_name']
         messages.success(request, f'{name} was successfully registered!!!')
@@ -78,8 +84,10 @@ class DrugList(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         # print(context.get('pharmacy'))
         return context
 
@@ -152,7 +160,8 @@ def add_to_cart(request, slug):
         messages.error(request, "Can't be added to cart")
         return redirect('drug:detail', slug=slug)
 
-    order_drug, created = OrderDrugs.objects.get_or_create(drug=drug, user=request.user, ordered=False)
+    order_drug, created = OrderDrugs.objects.get_or_create(
+        drug=drug, user=request.user, ordered=False)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
 
     if order_qs.exists():
@@ -167,7 +176,8 @@ def add_to_cart(request, slug):
             messages.info(request, f'{drug.brand_name} was added to your cart')
     else:
         ordered_date = timezone.now()
-        order = Order.objects.create(user=request.user, ordered_date=ordered_date)
+        order = Order.objects.create(
+            user=request.user, ordered_date=ordered_date)
         order.drugs.add(order_drug)
         messages.info(request, f'{drug.brand_name} was added to your cart')
 
@@ -190,9 +200,11 @@ def remove_from_cart(request, slug):
         order = order_qs[0]
 
         if order.drugs.filter(drug__slug=drug.slug).exists():
-            order_drug = OrderDrugs.objects.filter(drug=drug, user=request.user, ordered=False)[0]
+            order_drug = OrderDrugs.objects.filter(
+                drug=drug, user=request.user, ordered=False)[0]
             order.drugs.remove(order_drug)
-            messages.info(request, f'{drug.brand_name} was removed from your cart')
+            messages.info(
+                request, f'{drug.brand_name} was removed from your cart')
             return redirect('drug:order_summary')
         else:
             messages.info(request, f'{drug.brand_name} was not in your cart')
@@ -211,14 +223,15 @@ def remove_single_drug_from_cart(request, slug):
     except Drugs.DoesNotExist:
         messages.error(request, "Can't be removed from cart")
         return redirect('drug:order_summary')
-        
+
     order_qs = Order.objects.filter(user=request.user, ordered=False)
 
     if order_qs.exists():
         order = order_qs[0]
 
         if order.drugs.filter(drug__slug=drug.slug).exists():
-            order_drug = OrderDrugs.objects.filter(drug=drug, user=request.user, ordered=False)[0]
+            order_drug = OrderDrugs.objects.filter(
+                drug=drug, user=request.user, ordered=False)[0]
 
             if order_drug.quantity > 1:
                 order_drug.quantity -= 1
@@ -254,7 +267,7 @@ class OrderSummary(LoginRequiredMixin, PharmacistPermissionRequiredMixin, generi
                 'total': total,
                 'pharmacy': Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0],
                 'pharmacy_drugs': Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
-                }
+            }
             return render(self.request, 'drug/order_summary.html', context)
         except ObjectDoesNotExist:
             messages.error(self.request, "You don not have an active order")
@@ -270,14 +283,17 @@ class DrugsPharmacy(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Li
 
     def get_queryset(self):
         request = self.request
-        pharmacy = Pharmacy.objects.get(name=self.request.user.pharmacyuser.works_at)
+        pharmacy = Pharmacy.objects.get(
+            name=self.request.user.pharmacyuser.works_at)
         drugs = Drugs.objects.filter(added_by=request.user, pharmacy=pharmacy)
         return drugs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         # print(context.get('pharmacy'))
         return context
 
@@ -292,8 +308,10 @@ class DrugsExpired(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Lis
     def get_queryset(self):
         request = self.request
         try:
-            pharmacy = Pharmacy.objects.get(name=self.request.user.pharmacyuser.works_at)
-            drugs = Drugs.objects.filter(added_by=request.user, pharmacy=pharmacy)
+            pharmacy = Pharmacy.objects.get(
+                name=self.request.user.pharmacyuser.works_at)
+            drugs = Drugs.objects.filter(
+                added_by=request.user, pharmacy=pharmacy)
 
         except Drugs.DoesNotExist:
             raise Http404("No Drugs registered yet")
@@ -302,14 +320,17 @@ class DrugsExpired(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Lis
 
         for drug in drugs:
             expiry_date = drug.expiry_date
-            difference = int(str(expiry_date - present_date).split()[0])  # gets the number of days difference
+            # gets the number of days difference
+            difference = int(str(expiry_date - present_date).split()[0])
 
             if difference < 0:
                 return Drugs.objects.filter(expiry_date=expiry_date)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['pharmacy'] = Pharmacy.objects.filter(name=self.request.user.pharmacyuser.works_at)[0]
-        context['pharmacy_drugs'] = Drugs.objects.filter(pharmacy=self.request.user.pharmacyuser.works_at)
+        context['pharmacy'] = Pharmacy.objects.filter(
+            name=self.request.user.pharmacyuser.works_at)[0]
+        context['pharmacy_drugs'] = Drugs.objects.filter(
+            pharmacy=self.request.user.pharmacyuser.works_at)
         # print(context.get('pharmacy'))
         return context

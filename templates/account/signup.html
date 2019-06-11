@@ -76,7 +76,7 @@
           <div class="alert_error">
             {{ form.phone.errors }}
           </div>
-          <span class="helptext">Number must be in format: +237654686473</span>
+          <span class="helptext">{{ form.phone.help_text }}</span>
         </div>
 
         <div class="group">
@@ -106,7 +106,9 @@
         {% endif %}
 
         <div class="submit">
-          <button type="submit">{% trans "SignUp" %}</button>
+          <button class="button" type="submit">
+            <span><i class="fa fa-database"></i></span> Register
+          </button>
         </div>
 
         <p class="p_signin">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign
@@ -126,6 +128,6 @@
 
 {% block js %}
 
-<script src="{% static 'accounts/js/signup.js' %}"></script>
+<script src="{% static 'accounts/js/login.js' %}"></script>
 
 {% endblock %}

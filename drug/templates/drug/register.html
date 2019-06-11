@@ -2,21 +2,117 @@
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block css %}
-
-
+<link rel="stylesheet" href="{% static 'drug/css/register.css' %}" />
 {% endblock %}
 
 {% block content %}
 
+<div class="drug_register">
+
+    <h2>Register New Drug</h2>
+
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register">
+
+        <div class="form_content">
+            <div class="form1">
+                <div class="group">
+                    <label for="{{ form.brand_name.id_for_label }}">{{ form.brand_name.label }}</label>
+                    <span class="icon"><i class="fa fa-edit"></i></span>
+                    {{ form.brand_name }}
+                    <div class="alert_error">
+                        {{ form.brand_name.errors }}
+                    </div>
+                    <span class="helptext">{{ form.brand_name.help_text }}</span>
+                </div>
+                <div class="group">
+                    <label for="{{ form.generic_name.id_for_label }}">{{ form.generic_name.label }}</label>
+                    <span class="icon"><i class="fa fa-edit"></i></span>
+                    {{ form.generic_name }}
+                    <div class="alert_error">
+                        {{ form.generic_name.errors }}
+                    </div>
+                    <span class="helptext">{{ form.generic_name.help_text }}</span>
+                </div>
+                <div class="group des">
+                    <label for="{{ form.des.id_for_label }}">{{ form.des.label }}</label><br>
+                    {{ form.des }}
+                    <div class="alert_error">
+                        {{ form.des.errors }}
+                    </div>
+                    <span class="helptext">{{ form.des.help_text }}</span>
+                </div>
+                <div class="group category">
+                    <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label><br>
+                    {{ form.category }}
+                    <span class="helptext">{{ form.category.help_text }}</span>
+                </div>
+            </div>
+
+            <div class="form2">
+
+                <div class="group price">
+                    <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                    <span class="icon"><i class="fa fa-money"></i></span>
+                    {{ form.price }}
+                    <div class="alert_error">
+                        {{ form.price.errors }}
+                    </div>
+                    <span class="helptext">{{ form.price.help_text }}</span>
+                </div>
+                <div class="group">
+                    <label for="{{ form.discount_price.id_for_label }}">{{ form.discount_price.label }}</label>
+                    <span class="icon"><i class="fa fa-money"></i></span>
+                    {{ form.discount_price }}
+                    <div class="alert_error">
+                        {{ form.discount_price.errors }}
+                    </div>
+                    <span class="helptext">{{ form.discount_price.help_text }}</span>
+                </div>
+                <div class="group">
+                    <label for="{{ form.batch_no.id_for_label }}">{{ form.batch_no.label }}</label>
+                    <span class="icon"><i class="fa fa-hashtag"></i></span>
+                    {{ form.batch_no }}
+                    <div class="alert_error">
+                        {{ form.batch_no.errors }}
+                    </div>
+                    <span class="helptext">{{ form.batch_no.help_text }}</span>
+                </div>
+                <div class="group image">
+                    <label for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+                    {{ form.image }}
+                    <span class="icon"><i class="fa fa-photo"></i></span>
+                    <div class="alert_error">
+                        {{ form.image.errors }}
+                    </div>
+                    <span class="helptext">{{ form.image.help_text }}</span>
+                </div>
+                <div class="date">
+                    <label for="{{ form.expiry_date.id_for_label }}">{{ form.expiry_date.label }}</label>
+                    <span class="icon"><i class="fa fa-calendar"></i></span>
+                    {{ form.expiry_date }}
+                    <div class="alert_error">
+                        {{ form.expiry_date.errors }}
+                    </div>
+                    <span class="helptext">{{ form.expiry_date.help_text }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="submit">
+            <button class="button" type="submit">
+                <span><i class="fa fa-database"></i></span> Register
+            </button>
+        </div>
+
     </form>
+
+</div>
 
 {% endblock %}
 
 {% block js %}
-
-
+<script src="{% static 'base/js/datepicker.js' %}"></script>
+<script src="{% static 'base/js/button.js' %}"></script>
+<script src="{% static 'drug/js/register.js' %}"></script>
 {% endblock %}
