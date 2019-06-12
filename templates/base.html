@@ -12,7 +12,8 @@
   <title>{% block head_title %}{% endblock %}</title>
   {% block extra_head %}
   {% endblock %}
-
+  
+  <link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
   <link rel="stylesheet" href="{% static 'base/css/nav.css' %}" />
 
   {% block css %}{% endblock %}
@@ -100,7 +101,7 @@
 
   </main>
 
-
+  <script src="{% static 'base/js/jquery.js' %}"></script>
   {% block js %}{% endblock %}
 
 </body>

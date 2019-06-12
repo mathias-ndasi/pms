@@ -1,76 +1,96 @@
 {% extends "account/base.html" %}
 
-{% load i18n %}
+{% load i18n %} {% load static %}
 
 {% block head_title %}{% trans "Drug List" %}{% endblock %}
 
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'drug/css/list.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/footer.css' %}" />
+
+{% endblock %}
+
 {% block content %}
 
-    {% include 'search/snippets/search-form.html' %}<br>
-    <h1>{% trans "List of Drugs" %}</h1>
+{% include 'search/snippets/search-form.html' %}<br>
+<h1>{% trans "List of Drugs" %}</h1>
 
-    {% if request.user.is_superuser %}
-        <p>Overall Drug count: {{ drug_count }}</p>
+{% if request.user.is_superuser %}
+<p>Overall Drug count: {{ drug_count }}</p>
+{% endif %}
+
+<br>
+
+{% if user.is_admin %}
+<a href="{% url 'drug:register' %}">New Drug</a>
+<a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}">View My drugs</a>
+<a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}">View expired drugs</a>
+<a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}">View List of Pharmacist</a>
+{% endif %}
+
+<div class="drug_container">
+  {% for drug in drugs %}
+  <div class="drug_item">
+    <span class="top"></span>
+    {% if drug.image.url is not null %}
+    <div class="image">
+      <img src="{{ drug.image.url }}" alt="image">
+    </div>
     {% endif %}
-
-    <br>
-
-    {% if user.is_admin %}
-        <a href="{% url 'drug:register' %}">New Drug</a>
-        <a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}">View My drugs</a>
-        <a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}">View expired drugs</a>
-        <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}">View List of Pharmacist</a>
-    {% endif %}
-
     <div>
-        {% for drug in drugs %}
-            <div>
-                {% if drug.image.url is not null %}
-                <img src="{{ drug.image.url }}" alt="image">
-                {% endif %}
-                <h1><a href="{% url 'drug:detail' slug=drug.slug %}">{{ drug.brand_name }}</a></h1>
-                <h4>{{ drug.generic_name }}</h4>
-
-                <p>{{ drug.des|truncatewords:10 }}</p>
-                <p>{{ drug.category }}</p>
-
-                {% if drug.discount_price %}
-                    <p>{{ drug.discount_price }} CFA</p>
-                {% else %}
-                    <p>{{ drug.price }} CFA</p>
-                {% endif %}
-
-            </div>
-        {% endfor %}
-
-        {% for category in category %}
-            <p>{{ category.name }}</p>
-        {% endfor %}
+      <p>Brand name: <span>{{ drug.brand_name }}</span></p>
+    </div>
+    {% if drug.generic_name %}
+    <div>
+      <p>Generic name: <span>{{ drug.generic_name }}</span></p>
+    </div>
+    {% endif %}
+    <div>
+      <p>Category: <span>{{ drug.category }}</span></p>
     </div>
 
-    <br>
-
-    {% if is_paginated %}
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&laquo;</span></li>
-        {% endif %}
-        {% for i in paginator.page_range %}
-          {% if page_obj.number == i %}
-            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
+    {% if drug.discount_price %}
+    <div>
+      <p>Discount Price: <span>{{ drug.discount_price }} CFA</span></p>
+    </div>
+    <div>
+      <p>Price: <span class="cross">{{ drug.price }} CFA</span></p>
+    </div>
+    {% else %}
+    <div>
+      <p>Price: <span class="cross">{{ drug.price }} CFA</span></p>
+    </div>
     {% endif %}
+    <a href="{% url 'drug:detail' slug=drug.slug %}"><span><i class="fa fa-eye"></i>View</span></a>
+    <span class="bottom"></span>
+  </div>
+  {% endfor %}
+</div>
+
+<br>
+
+{% if is_paginated %}
+<ul class="pagination">
+  {% if page_obj.has_previous %}
+  <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+  {% else %}
+  <li class="disabled"><span>&laquo;</span></li>
+  {% endif %}
+  {% for i in paginator.page_range %}
+  {% if page_obj.number == i %}
+  <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+  {% else %}
+  <li><a href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+  {% endfor %}
+  {% if page_obj.has_next %}
+  <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+  {% else %}
+  <li class="disabled"><span>&raquo;</span></li>
+  {% endif %}
+</ul>
+{% endif %}
 
 
 {% endblock %}
@@ -78,5 +98,12 @@
 
 {% block extra_body %}
 
+{% include "core/base/footer.html" %}
+
 {% endblock %}
 
+{% block js %}
+
+<script src="{% static 'drug/js/list.js' %}"></script>
+
+{% endblock %}

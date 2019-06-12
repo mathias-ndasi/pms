@@ -1,0 +1,94 @@
+.drug_container {
+    border: 1px solid green;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.drug_container .drug_item {
+    width: 300px;
+    /* height: 400 px; */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    position: relative;
+}
+
+.drug_container .drug_item .top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--default-color);
+    height: 5px;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.drug_container .drug_item .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--default-color);
+    height: 5px;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+
+.drug_container .image {
+    /* width: 100px; */
+    height: 250px;
+    margin-bottom: 10px;
+    border: 1px solid red;
+    margin: auto;
+}
+
+.drug_container .drug_item:hover .bottom {
+    display: none;
+}
+
+.drug_container .drug_item a {
+    display: none;
+}
+
+.drug_container .drug_item:hover::after {
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+}
+
+.drug_container .drug_item:hover a {
+    display: block;
+    text-decoration: none;
+    padding: 10px auto;
+    width: 100%;
+    background: var(--dashboard-nav);
+    color: #fff;
+    border-radius: 0 0 5px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: anim 0.2s ease-in;
+}
+
+@keyframes anim {
+    from {
+        transform: translateY(10%);
+        opacity: 0.3;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.drug_container .drug_item a span {
+    margin: 8px auto;
+}
+
+.drug_container .drug_item a span i {
+    margin-right: 10px;
+}
