@@ -11,6 +11,9 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # landing url
+    path('', views.LandingView.as_view(), name='landing'),
+
     # path('', views.IndexView.as_view(), name='home'),
     path('home/', views.IndexView.as_view(), name='home'),
 

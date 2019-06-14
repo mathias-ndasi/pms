@@ -30,6 +30,22 @@ from drug.models import Drugs
 #         return context
 
 
+class LandingView(generic.TemplateView):
+    template_name = "core/landing.html"
+    model = Drugs
+    # paginate_by = 5
+    context_object_name = 'drugs'
+    queryset = Drugs.objects.all()
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['pharmacy'] = Pharmacy.objects.filter(
+    #         name=self.request.user.pharmacyuser.works_at)[0]
+    #     context['pharmacy_drugs'] = Drugs.objects.filter(
+    #         pharmacy=self.request.user.pharmacyuser.works_at)
+    #     return context
+
+
 class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = "core/index.html"
     model = Drugs

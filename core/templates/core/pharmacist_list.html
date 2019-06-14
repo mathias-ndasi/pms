@@ -8,7 +8,7 @@
 {% block content %}
 
 <div class="search">
-  {% include 'search/snippets/search-form.html' %}
+  {% include 'search/snippets/search-pharmacist.html' %}
 </div>
 
 {% blocktrans with pharmacy=request.user.pharmacyuser.works_at city=request.user.pharmacyuser.city %}

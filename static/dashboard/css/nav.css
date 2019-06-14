@@ -714,3 +714,41 @@ main {
         opacity: 0;
     }
 }
+
+/* Start search */
+
+main .search {
+    /* text-align: center; */
+    padding: 15px 30px;
+    margin: 15px auto;
+    position: relative;
+    width: 35%;
+}
+
+main .search form input {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+main .search form button {
+    position: absolute;
+    top: 22px;
+    right: 40px;
+    display: block;
+    color: rgba(255, 255, 255, 0.25);
+    background: none;
+    border: none;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+main .search form input {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* End search */

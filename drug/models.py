@@ -43,6 +43,7 @@ class DrugQueryset(models.query.QuerySet):
 
             if difference > 0:
                 good_drugs.append(drug)
+                # return drugs.objects.filter(expiry_date=expiry_date)
 # drugs.filter(expiry_date=expiry_date)
         return good_drugs
 
@@ -72,8 +73,8 @@ class DrugManager(models.Manager):
     def get_queryset(self):
         return DrugQueryset(self.model, using=self._db)
 
-    # def all(self):
-    #     return self.get_queryset().good_drugs()
+    def all(self):
+        return self.get_queryset().good_drugs()
 
     def expired_drugs(self):
         return self.get_queryset().bad_drugs()
@@ -120,7 +121,7 @@ class Drugs(models.Model):
         _('registration date'), auto_now_add=True)
     updated_on = models.DateTimeField(_('last updated'), auto_now=True)
 
-    # objects = DrugManager()
+    objects = DrugManager()
 
     def get_add_to_cart_url(self):
         return reverse('drug:add_to_cart', kwargs={'slug': self.slug})
@@ -146,7 +147,7 @@ class OrderDrugs(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f'{self.quantity} of {self.drug.name}'
+        return f'{self.quantity} of {self.drug.generic_name}'
 
     class Meta:
         verbose_name_plural = 'Ordered Drugs'

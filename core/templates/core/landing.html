@@ -1,0 +1,59 @@
+{% extends "account/base.html" %} {% load i18n %} {% load static %} {% load
+account socialaccount %} {% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block css %}
+
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+
+<link rel="stylesheet" href="{% static 'base/css/landing.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/footer.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="landing_content">
+    <div class="first_img">
+        <h2 class="right animatable">" PMS, Your health our priority "</h2>
+
+        <!-- <div class="img">
+            <img src="{% static 'drug/img/pharmacy.jpg' %}" alt="img">
+        </div> -->
+        <div class="info left animatable">
+            <p>Long gone the frustration and doubts in the questionable integrity and availability of drugs in
+                pharmacies
+                by users.</p>
+            <p>Thanks to PMS, all your worries and doubts are brought to null</p>
+        </div>
+    </div>
+
+    <div class="get_started">
+        <div class="get_started_content">
+            <div class="image">
+                <img src="{% static 'base/img/question2.gif' %}" alt="image">
+            </div>
+            <p>Why move from one pharmacy to another in search of a particular Drug?</p>
+            <p>why the stress on preparing a drug order list and management of expired drugs?</p>
+            <a href="{% url 'account_signup' %}" class="button bottom animatable"><span><i
+                        class="fa fa-rocket"></i></span>
+                Get Started</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_body %}
+
+{% include "core/base/footer.html" %}
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'base/js/button.js' %}"></script>
+<script src="{% static 'base/js/landing.js' %}"></script>
+
+{% endblock %}

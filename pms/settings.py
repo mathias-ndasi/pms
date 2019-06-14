@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.urls import reverse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -199,7 +200,7 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 50
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'  # or any other page
-LOGIN_REDIRECT_URL = '/home/'  # redirects to profile page if not configured.
+LOGIN_REDIRECT_URL = '/drug/'  # redirects to profile page if not configured.
 UNIQUE_EMAIL = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 USER_MODEL_USERNAME_FIELD = 'email'

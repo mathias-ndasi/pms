@@ -52,6 +52,7 @@ class Pharmacy(models.Model):
 class UserQueryset(models.query.QuerySet):
 
     def search_pharmacist(self, query):
+        instances = self.filter()
         lookups = Q(email__icontains=query) | Q(first_name__icontains=query) | Q(
             last_name__icontains=query)
         return self.filter(lookups).distinct()
@@ -80,7 +81,7 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = UserManager()
+    # objects = UserManager()
 
     class Meta:
         verbose_name = _('user')
