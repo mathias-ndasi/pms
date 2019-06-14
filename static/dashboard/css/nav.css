@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:100|Poppins:200|ZCOOL+KuaiLe');
-
 :root {
     --general-font: 'Poppins', sans-serif;
     --nav-bg: #2a2939;
@@ -22,9 +21,9 @@ body {
     padding: 0;
     margin: 0;
     background-color: #2a2b3d
-        /* background: red; */
-        /* background-color: grey; */
-        /* background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX4+Pj09PQf/c7fAAAAGklEQVR4Xq3MIQEAAADDIPqX/kvMIMEWEm8O7b0/wewc/NcAAAAASUVORK5CYII=) repeat; */
+    /* background: red; */
+    /* background-color: grey; */
+    /* background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX4+Pj09PQf/c7fAAAAGklEQVR4Xq3MIQEAAADDIPqX/kvMIMEWEm8O7b0/wewc/NcAAAAASUVORK5CYII=) repeat; */
 }
 
 img {
@@ -149,33 +148,28 @@ main {
 
 /* End heading */
 
-.side-nav .categories>li,
-.drop_aside .categories>li {
+.side-nav .categories>li, .drop_aside .categories>li {
     padding: 17px 40px 17px 30px;
     overflow: hidden;
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     cursor: pointer;
 }
 
-.side-nav .categories>li>a,
-.drop_aside .categories>li>a {
+.side-nav .categories>li>a, .drop_aside .categories>li>a {
     color: #AAA;
     text-decoration: none;
 }
 
-.side-nav .categories>li>a:hover,
-.drop_aside .categories>li>a:hover {
+.side-nav .categories>li>a:hover, .drop_aside .categories>li>a:hover {
     color: #FFF
 }
 
-.side-nav .categories>li>i,
-.drop_aside .categories>li>i {
+.side-nav .categories>li>i, .drop_aside .categories>li>i {
     font-size: 18px;
     margin-right: 5px
 }
 
-.side-nav .categories>li>a.arrow:after,
-.drop_aside .categories>li>a.arrow:after {
+.side-nav .categories>li>a.arrow:after, .drop_aside .categories>li>a.arrow:after {
     content: "\f053";
     font-family: fontAwesome;
     font-size: 11px;
@@ -187,8 +181,7 @@ main {
     transition: all .3s ease-in-out;
 }
 
-.side-nav .categories .opend>a:after,
-.drop_aside .categories .opend>a:after {
+.side-nav .categories .opend>a:after, .drop_aside .categories .opend>a:after {
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
     transform: rotate(-90deg);
@@ -198,29 +191,25 @@ main {
 
 /* Start dropdown menu */
 
-.side-nav .categories .side-nav-dropdown,
-.drop_aside .categories .resize-nav-dropdown {
+.side-nav .categories .side-nav-dropdown, .drop_aside .categories .resize-nav-dropdown {
     padding-top: 10px;
     padding-left: 30px;
     list-style: none;
     display: none;
 }
 
-.side-nav .categories .side-nav-dropdown>li>a,
-.drop_aside .categories .resize-nav-dropdown>li>a {
+.side-nav .categories .side-nav-dropdown>li>a, .drop_aside .categories .resize-nav-dropdown>li>a {
     color: #AAA;
     text-decoration: none;
     padding: 7px 0;
     display: block;
 }
 
-.side-nav .categories .side-nav-dropdown>li>a:hover,
-.drop_aside .categories .resize-nav-dropdown>li>a:hover {
+.side-nav .categories .side-nav-dropdown>li>a:hover, .drop_aside .categories .resize-nav-dropdown>li>a:hover {
     color: #fff;
 }
 
-.side-nav .categories p,
-.drop_aside .categories p {
+.side-nav .categories p, .drop_aside .categories p {
     margin-left: 30px;
     color: #535465;
     margin-top: 10px;
@@ -237,13 +226,10 @@ main {
 /* Start media query */
 
 @media (max-width: 767px) {
-
-    .side-nav .categories>li,
-    .drop_aside.categories>li {
+    .side-nav .categories>li, .drop_aside.categories>li {
         padding-top: 12px;
         padding-bottom: 12px;
     }
-
     /* .side-nav .search {
         padding: 10px 0 10px 30px
     } */
@@ -275,14 +261,11 @@ main {
     color: #FFF !important
 }
 
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover {
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
     color: #EEE !important
 }
 
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover {
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     background-color: transparent !important;
     color: #FFF !important
 }
@@ -292,13 +275,11 @@ main {
     padding: 0 !important
 }
 
-.navbar-default .navbar-brand:focus,
-.navbar-default .navbar-brand:hover {
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
     color: #FFF !important
 }
 
-.navbar>.container .navbar-brand,
-.navbar>.container-fluid .navbar-brand {
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
     margin: 0 !important
 }
 
@@ -306,17 +287,13 @@ main {
     .navbar>.container-fluid .navbar-brand {
         margin-left: 15px !important;
     }
-
     .navbar-default .navbar-nav>li>a {
         padding-left: 0 !important;
     }
-
     .navbar-nav {
         margin: 0 !important;
     }
-
-    .navbar-default .navbar-collapse,
-    .navbar-default .navbar-form {
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
         border: none !important;
     }
 }
@@ -327,23 +304,18 @@ main {
     #contents {
         margin: 0 !important
     }
-
     .navbar-default .navbar-nav .open .dropdown-menu>li>a {
         color: #CCC !important
     }
-
     .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
         color: #FFF !important
     }
-
     .navbar-default .navbar-toggle {
         border: none !important;
         color: #EEE !important;
         font-size: 18px !important;
     }
-
-    .navbar-default .navbar-toggle:focus,
-    .navbar-default .navbar-toggle:hover {
+    .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
         background-color: transparent !important
     }
 }
@@ -374,7 +346,6 @@ main {
     0% {
         transform: translateY(-20px);
     }
-
     100% {
         transform: translateY(0px);
     }
@@ -390,16 +361,14 @@ main {
 
 /* Start search */
 
-.drop_aside .search,
-.side-nav .search {
+.drop_aside .search, .side-nav .search {
     text-align: center;
     padding: 15px 30px;
     margin: 15px 0;
     position: relative;
 }
 
-.drop_aside .search form input,
-.side-nav .search form input {
+.drop_aside .search form input, .side-nav .search form input {
     width: 100%;
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -409,8 +378,7 @@ main {
     color: #DDD
 }
 
-.drop_aside .search form button,
-.side-nav .search form button {
+.drop_aside .search form button, .side-nav .search form button {
     position: absolute;
     top: 22px;
     right: 40px;
@@ -428,7 +396,6 @@ main {
 
 /* End search */
 
-
 /* BOTTOM BARS ================================= */
 
 .navbar .logout .bar {
@@ -437,8 +404,7 @@ main {
     /* width: 400px; */
 }
 
-.navbar .logout .bar:before,
-.navbar .logout .bar:after {
+.navbar .logout .bar:before, .navbar .logout .bar:after {
     content: '';
     height: 2px;
     width: 0;
@@ -460,8 +426,7 @@ main {
 
 /* active state */
 
-.navbar .logout a:hover~.bar:before,
-.navbar .logout a:hover~.bar:after {
+.navbar .logout a:hover~.bar:before, .navbar .logout a:hover~.bar:after {
     width: 50%;
 }
 
@@ -486,6 +451,7 @@ main {
 }
 
 /* this is for messages */
+
 .notify_container {
     display: flex;
     justify-content: center;
@@ -515,6 +481,7 @@ main {
 }
 
 /* A CIRCLE LIKE BUTTON IN THE TOP MENU. */
+
 .noti_conatiner #noti_Button {
     width: 22px;
     height: 22px;
@@ -525,6 +492,7 @@ main {
 }
 
 /* THE POPULAR RED NOTIFICATIONS COUNTER. */
+
 .noti_conatiner #noti_Counter {
     display: block;
     position: absolute;
@@ -541,6 +509,7 @@ main {
 }
 
 /* THE NOTIFICAIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
+
 .noti_conatiner #notifications {
     display: none;
     width: 430px;
@@ -559,6 +528,7 @@ main {
 }
 
 /* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
+
 .noti_conatiner #notifications:before {
     content: '';
     display: block;
@@ -590,7 +560,7 @@ main {
     background: #ebf1f7;
     border-bottom: 1px solid rgba(0, 0, 0, .20);
     padding: 7px 5px;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .noti_conatiner #notifications ul li:hover {
@@ -599,8 +569,8 @@ main {
 
 /* End notification bell */
 
-
 /* here is where the pagination starts */
+
 .pagination {
     /* border: 1px solid red;* */
     list-style: none;
@@ -634,8 +604,8 @@ main {
     color: #ccc;
 }
 
-
 /* submit buttons with ripple effect */
+
 .submit {
     justify-self: center;
     display: flex;
@@ -645,6 +615,7 @@ main {
 }
 
 /* submit buttons */
+
 .button {
     display: inline-block;
     text-decoration: none;
@@ -686,7 +657,6 @@ main {
     from {
         opacity: 1;
     }
-
     to {
         transform: scale(2);
         opacity: 0;
@@ -697,7 +667,6 @@ main {
     from {
         opacity: 1;
     }
-
     to {
         transform: scale(2);
         opacity: 0;
@@ -708,7 +677,6 @@ main {
     from {
         opacity: 1;
     }
-
     to {
         transform: scale(2);
         opacity: 0;

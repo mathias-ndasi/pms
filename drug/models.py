@@ -64,8 +64,8 @@ class DrugQueryset(models.query.QuerySet):
         return bad_drugs
 
     def search(self, query):
-        lookups = Q(generic_name__icontains=query) | Q(brand_name__icontains=query) | Q(
-            des__icontains=query) | Q(price__icontains=query)
+        lookups = Q(generic_name__icontains=query) | Q(
+            brand_name__icontains=query) | Q(price__icontains=query)
         return self.filter(lookups).distinct()
 
 
@@ -73,8 +73,8 @@ class DrugManager(models.Manager):
     def get_queryset(self):
         return DrugQueryset(self.model, using=self._db)
 
-    def all(self):
-        return self.get_queryset().good_drugs()
+    # def all(self):
+    #     return self.get_queryset().good_drugs()
 
     def expired_drugs(self):
         return self.get_queryset().bad_drugs()
@@ -128,6 +128,9 @@ class Drugs(models.Model):
 
     def get_absolute_url(self):
         return reverse("drug:detail", kwargs={"slug": self.slug})
+
+    # def get_edit_url(self):
+    #     return reverse("drug:detail", kwargs={"slug": self.slug})
 
     def remove_from_cart_url(self):
         return reverse('drug:remove_from_cart', kwargs={'slug': self.slug})
