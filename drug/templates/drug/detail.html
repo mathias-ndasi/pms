@@ -1,55 +1,133 @@
-{% extends "account/base.html" %}
+{% extends "account/base.html" %} {% load i18n %} {% load static %}
+{% block head_title %}{% trans "Drug Detail" %}{% endblock %} {% block css %}
 
-{% load i18n %}
+<link rel="stylesheet" href="{% static 'drug/css/detail.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/footer.css' %}" />
 
-{% block head_title %}{% trans "Drug Details" %}{% endblock %}
+{% endblock %}
 
 {% block content %}
 
-        <!--{{ expired_drugs }}-->
+<div class="list_header">
 
-        <!--{{ date_difference }}-->
-        <br>
+        <h1>{% trans "Drug Detail" %}</h1>
+
+        {% if request.user.is_superuser %}
+        <p>Overall Drug count: {{ drug_count }}</p>
+        {% endif %}
+
+</div>
+
+<br />
+
+<div class="drug_container">
+
+        <div class="content">
+
+                {% if drug.image.url is not null %}
+                <div class="img">
+                        <img src="{{ drug.image.url }}" alt="image">
+                </div>
+                {% endif %}
+
+                <div>
+                        <div class="item">
+                                <div>
+                                        <h4>Brand Name</h4>
+                                        <p>{{ drug.brand_name }}</p>
+
+                                </div>
+                                <div>
+                                        <h4>Generic Name</h4>
+                                        <p>{{ drug.generic_name }}</p>
+
+                                </div>
+                                <div>
+                                        <h4>Drug Description</h4>
+                                        <p>{{ drug.des }}</p>
+
+                                </div>
+                                <div>
+                                        <h4>Category</h4>
+                                        <p>{{ drug.category }}</p>
+
+                                </div>
+                                <div>
+                                        <h4>Where you can find Drug</h4>
+                                        <p>{{ drug.pharmacy }} pharmacy in {{ drug.pharmacy.city }} precisely in
+                                                {{ drug.pharmacy.location }}</p>
+
+                                </div>
+
+                                {% if drug.discount_price %}
+
+                                <div>
+                                        <h4>Discount Price</h4>
+                                        <p>{{ drug.discount_price }} CFA</p>
+
+                                </div>
+
+                                {% else %}
+
+                                <div>
+                                        <h4>Drug Price</h4>
+                                        <p>{{ drug.price }} CFA</p>
+
+                                </div>
+
+                                {% endif %}
+
+                                <div>
+                                        <h4>Batch Number</h4>
+                                        <p>{{ drug.batch_no }}</p>
+
+                                </div>
+                                <div>
+                                        <h4>Expiry Date</h4>
+                                        <p>{{ drug.expiry_date }}</p>
+
+                                </div>
+                        </div>
+
+                        {% if request.user.is_pharmacist %}
+                        <div class="cart">
+                                <a class="button" href="{{ object.get_add_to_cart_url }}"><span><i
+                                                        class="fa fa-cart-plus"></i></span>
+                                        Add to Cart</a><br>
+                                <a class="button" href="{{ object.remove_from_cart_url }}"><span><i
+                                                        class="fa fa-cart-plus"></i></span>
+                                        Remove from Cart</a>
+                        </div>
+                        {% endif %}
+                </div>
+        </div>
 
         {% if request.user.is_admin %}
-
-                <a href="{% url 'drug:edit' slug=drug.slug %}">Edit</a>
-                <a href="{% url 'drug:delete' slug=drug.slug %}">Delete</a>
-
+        <div class="edit">
+                <a class="button" href="{% url 'drug:edit' slug=drug.slug %}"><span><i class="fa fa-gear"></i></span>
+                        Edit</a>
+                <a class="button red" href="{% url 'drug:delete' slug=drug.slug %}"><span><i
+                                        class="fa fa-trash"></i></span>
+                        Delete</a>
+        </div>
         {% endif %}
-
-        <br>
-
-        {% if drug.image.url is not null %}
-        <img src="{{ drug.image.url }}" alt="image">
-        {% endif %}
-
-        <h2>Brand Name: {{ drug.brand_name }}</h2>
-        <h4>Generic Name: {{ drug.generic_name }}</h4>
-        <p>{{ drug.des }}</p>
-        <p>Category: {{ drug.category }}</p>
-        <p>Pharmacy Found: {{ drug.pharmacy }} in {{ drug.pharmacy.city }} precisely in {{ drug.pharmacy.location }}</p>
-
-        {% if drug.discount_price %}
-            <p>Discount Price: {{ drug.discount_price }} CFA</p>
-        {% else %}
-            <p>Price: {{ drug.price }} CFA</p>
-        {% endif %}
-
-        <p>Batch Number: {{ drug.batch_no }}</p>
-        <p>Expiry Date: {{ drug.expiry_date }}</p>
-
-        {% if request.user.is_pharmacist %}
-                <div>
-                        <a href="{{ object.get_add_to_cart_url }}">Add to Cart</a><br>
-                        <a href="{{ object.remove_from_cart_url }}">Remove from Cart</a>
-                </div>
-        {% endif %}
+</div>
 
 
 {% endblock %}
 
 
 {% block extra_body %}
+
+{% include "core/base/footer.html" %}
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<script src="{% static 'base/js/button.js' %}"></script>
+<script src="{% static 'drug/js/detail.js' %}"></script>
 
 {% endblock %}

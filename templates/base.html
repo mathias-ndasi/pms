@@ -12,7 +12,7 @@
   <title>{% block head_title %}{% endblock %}</title>
   {% block extra_head %}
   {% endblock %}
-  
+
   <link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
   <link rel="stylesheet" href="{% static 'base/css/nav.css' %}" />
 
@@ -48,14 +48,51 @@
           <span class="bar"></span>
         </li>
         {% endif %}
-        <li>
-          <a href="{% url 'core:profile' name=request.user.first_name %}">Profile</a>
-          <span class="bar"></span>
+
+        {% if request.user.is_admin or request.user.is_pharmacist %}
+
+        <!-- show notifications -->
+        <li class="notify_li">
+
+          <!-- notication bell -->
+          <div class="noti_conatiner">
+            <ul>
+              <li id="noti_Container">
+                <div id="noti_Counter"></div>
+                <!--SHOW NOTIFICATIONS COUNT.-->
+
+                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                <div id="noti_Button"><i class="fa fa-bell"></i></div>
+
+                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                <div id="notifications">
+                  <h3>Notifications</h3>
+
+                  {% if messages %}
+                  <div class="messages">
+                    {% if messages %}
+                    <ul>
+                      {% for message in messages %}
+                      <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important:
+                        {% endif %}
+                        {{ message|safe }}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+
+                </div>
+              </li>
+            </ul>
+          </div>
+
+
         </li>
-        <li>
-          <a href="#">Settings</a>
-          <span class="bar"></span>
-        </li>
+        {% endif %}
+
         <li>
           <a href="{% url 'account_logout' %}">Logout</a>
           <span class="bar"></span>
@@ -74,26 +111,9 @@
       </ul>
     </nav>
 
-    {% if messages %}
-    <div class="messages">
-      {% if messages %}
-      <ul>
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
-          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-          {{ message|safe }}
-          </li>
-          {% endfor %}
-      </ul>
-      {% endif %}
-    </div>
-    {% endif %}
-
     {% block content %}
     {% endblock %}
-    <!-- <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, obcaecati doloremque quia vero iusto alias
-      error tenetur quis temporibus dolorem blanditiis facere beatae fugiat, aliquid, autem eligendi reprehenderit optio
-      dolorum!</p> -->
+
     {% endblock %}
 
     {% block extra_body %}
@@ -102,6 +122,9 @@
   </main>
 
   <script src="{% static 'base/js/jquery.js' %}"></script>
+  <!-- <script src="{% static 'base/js/base.js' %}"></script> -->
+  <script src="{% static 'base/js/notification_bell.js' %}"></script>
+
   {% block js %}{% endblock %}
 
 </body>

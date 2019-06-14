@@ -12,25 +12,13 @@
     /* border: none; */
 }
 
-.login_container h1 {
-    color: red;
-}
-
-.login_container p {
-    /* background-color: var(--default-color1); */
-}
-
-.login_container .alert {
-    color: red;
+.login_container .alert_container {
+    color: rgba(255, 0, 0, 0.699);
     margin: 20px auto;
 }
 
-.login_container .alert_errors {
-    color: red;
-    margin-bottom: 20px;
-}
 
-.login_container .alert button {
+.login_container .alert_container button {
     background: none;
     outline: none;
     border: none;

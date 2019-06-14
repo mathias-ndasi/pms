@@ -1,68 +1,124 @@
 {% extends "base_dashboard.html" %} {% load i18n %} {% load static %}
-{% block title %}{% trans "List of Pharmacist" %}{% endblock %}
+{% block head_title %}{% trans "Expired Drugs" %}{% endblock %} {% block css %}
 
-{% block css %}
-
+<link rel="stylesheet" href="{% static 'drug/css/list.css' %}" />
+<link rel="stylesheet" href="{% static 'drug/css/expired.css' %}" />
 
 {% endblock %}
 
 {% block content %}
 
-    <h1>{% trans "List of Expired Drugs" %}</h1>
+<div class="list_header">
 
+  <h1>{% trans "List of Expired Drugs" %}</h1>
+
+  {% if request.user.is_superuser %}
+  <p>Overall Drug count: {{ drug_count }}</p>
+  {% endif %}
+
+</div>
+
+<br>
+
+
+<div class="drug_container">
+  {% for drug in drugs %}
+  <div class="drug_item">
+    <span class="top"></span>
+    {% if drug.image.url is not null %}
+    <div class="image">
+      <img src="{{ drug.image.url }}" alt="image" />
+    </div>
+    {% endif %}
     <div>
-        {% for drug in drugs %}
-            <div>
-                <h1><a href="{% url 'drug:detail' slug=drug.slug %}">{{ drug.brand_name }}</a></h1>
-                <h2>{{ drug.generic_name }}</h2>
-
-                <p>{{ drug.des|truncatewords:10 }}</p>
-                <p>{{ drug.category }}</p>
-
-                {% if drug.discount_price %}
-                    <p>{{ drug.discount_price }} CFA</p>
-                {% else %}
-                    <p>{{ drug.price }} CFA</p>
-                {% endif %}
-
-            </div>
-
-        {% empty %}
-
-            <p>No drugs have expired</p>
-
-        {% endfor %}
-
+      <p>
+        Brand name: <span>{{ drug.brand_name }}</span>
+      </p>
+    </div>
+    {% if drug.generic_name %}
+    <div>
+      <p>
+        Generic name: <span>{{ drug.generic_name }}</span>
+      </p>
+    </div>
+    {% endif %}
+    <div>
+      <p>
+        Category: <span>{{ drug.category }}</span>
+      </p>
     </div>
 
-    <br>
-
-    {% if is_paginated %}
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&laquo;</span></li>
-        {% endif %}
-        {% for i in paginator.page_range %}
-          {% if page_obj.number == i %}
-            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
-      </ul>
+    {% if drug.discount_price %}
+    <div>
+      <p>
+        Discount Price: <span>{{ drug.discount_price }} CFA</span>
+      </p>
+    </div>
+    <div>
+      <p>
+        Price: <span class="cross">{{ drug.price }} CFA</span>
+      </p>
+    </div>
+    {% else %}
+    <div>
+      <p>
+        Price: <span class="cross">{{ drug.price }} CFA</span>
+      </p>
+    </div>
     {% endif %}
+    <a href="{% url 'drug:detail' slug=drug.slug %}"><span><i class="fa fa-eye"></i>View</span></a>
+    <span class="bottom"></span>
+  </div>
+  {% empty %}
+
+  <p>No drugs have expired</p>
+
+  {% endfor %}
+</div>
+
+
+
+<br />
+
+{% if is_paginated %}
+<ul class="pagination">
+
+  {% if page_obj.has_previous %}
+  <li class="arrow"><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-chevron-circle-left"></i></a>
+  </li>
+  {% else %}
+  <li class="disabled arrow"><span><i class="fa fa-chevron-circle-left"></i></span></li>
+  {% endif %}
+
+  {% for i in paginator.page_range %}
+
+  {% if page_obj.number == i %}
+  <li class="active">
+    <span>{{ i }} <span class="sr-only">(current)</span></span>
+  </li>
+  {% else %}
+  <li>
+    <a href="?page={{ i }}">{{ i }}</a>
+  </li>
+  {% endif %}
+
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+  <li class="arrow"><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-chevron-circle-right"></i></a>
+  </li>
+  {% else %}
+  <li class="disabled arrow"><span><i class="fa fa-chevron-circle-right"></i></span></li>
+  {% endif %}
+
+</ul>
+{% endif %}
 
 
 {% endblock %}
 
 {% block js %}
 
+<script src="{% static 'drug/js/list.js' %}"></script>
 
 {% endblock %}

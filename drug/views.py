@@ -78,7 +78,7 @@ class DrugRegister(LoginRequiredMixin, generic.CreateView):
 class DrugList(LoginRequiredMixin, generic.ListView):
     template_name = 'drug/list.html'
     model = Drugs
-    paginate_by = 5
+    paginate_by = 6
     context_object_name = 'drugs'
     queryset = Drugs.objects.all()
 
@@ -321,7 +321,7 @@ class DrugsExpired(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.Lis
         for drug in drugs:
             expiry_date = drug.expiry_date
             # gets the number of days difference
-            difference = int(str(expiry_date - present_date).split()[0])
+            difference = (expiry_date - present_date).days
 
             if difference < 0:
                 return Drugs.objects.filter(expiry_date=expiry_date)

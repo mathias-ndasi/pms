@@ -1,0 +1,231 @@
+.drug_edit {
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.drug_edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    padding-top: 40px;
+}
+
+.drug_edit h2 {
+    margin-bottom: 30px;
+}
+
+.drug_edit .alert_error {
+    color: red;
+    margin: 8px auto;
+}
+
+.drug_edit .alert_error ul {
+    list-style: none;
+}
+
+.drug_edit .helptext {
+    color: green;
+    font-size: 14px;
+}
+
+.drug_edit form {
+    display: block;
+}
+
+.drug_edit .form_content {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.drug_edit .form_content .form1 {
+    margin-right: 50px;
+}
+
+/* form starting stylings ------------------------------- */
+
+.drug_edit .group {
+    /* border: 1px solid red; */
+    position: relative;
+    margin: 15px auto;
+    /* border: 1px solid black; */
+}
+
+.drug_edit .des textarea,
+.drug_edit .category select {
+    padding: 10px;
+    margin-top: 5px;
+    display: block;
+    width: 400px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-size: 17px;
+}
+
+.drug_edit .category select option {
+    color: #fff;
+    background-color: var(--nav-bg);
+}
+
+.drug_edit .des textarea {
+    overflow: auto;
+    height: 100px;
+    resize: none;
+}
+
+.drug_edit input {
+    font-size: 18px;
+    padding: 10px 10px 10px 50px;
+    margin-top: 5px;
+    display: block;
+    width: 400px;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.drug_edit .image {
+    color: #333;
+}
+
+.drug_edit input[type="file"] {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+}
+
+.drug_edit .icon {
+    position: absolute;
+    top: 44%;
+    left: 8px;
+    /* bottom: 50%; */
+    transform: translateY(-23%);
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5)
+        /* margin-right: 40px; */
+}
+
+.drug_edit .form2 .price .icon {
+    top: 60%;
+}
+
+.drug_edit .date {
+    margin: 15px auto;
+    position: relative;
+}
+
+.drug_edit .date .icon {
+    color: red;
+    position: absolute;
+    top: 40px;
+}
+
+.drug_edit .icon i {
+    font-size: 18px;
+    color: #333;
+}
+
+/* .drug_edit .image i {
+    color: #fff;
+} */
+
+.drug_edit input:focus {
+    outline: none;
+}
+
+/* LABEL ======================================= */
+
+.drug_edit label {
+    font-size: 18px;
+    color: #333;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.drug_edit .submit {
+    /* border: 1px solid red; */
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+/* submit buttons */
+.drug_edit .submit .button {
+    display: inline-block;
+    margin: 0.3em;
+    padding: 13px 50px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--default-color);
+}
+
+.drug_edit .submit .button span {
+    margin-right: 10px;
+}
+
+.drug_edit .submit .ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .25);
+    border-radius: 100%;
+    transform: scale(0.2);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-animation: ripple .75s ease-out;
+    -moz-animation: ripple .75s ease-out;
+    animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* .image a,
+.image #text,
+.image label:not(#true),
+.image input[type='checkbox'] {
+    display: none;
+} */

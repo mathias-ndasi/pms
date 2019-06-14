@@ -1,0 +1,104 @@
+.profile_update h2 {
+    margin: 50px auto 20px auto;
+    text-align: center;
+}
+
+.profile_update .profile_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    padding: 40px 30px;
+    margin: 40px auto;
+}
+
+.profile_update .profile_content .img {
+    margin-bottom: 20px;
+    width: 120px;
+}
+
+.profile_update .profile_content .img img {
+    border-radius: 50%;
+}
+
+.profile_content .alert_error {
+    color: red;
+    margin: 8px auto;
+}
+
+.profile_content .alert_error ul {
+    list-style: none;
+}
+
+.profile_content .helptext {
+    color: green;
+    font-size: 14px;
+}
+
+.profile_content form {
+    display: block;
+}
+
+.profile_content form p {
+    margin: 12px;
+}
+
+/* form starting stylings ------------------------------- */
+
+.profile_content .group {
+    /* border: 1px solid red; */
+    position: relative;
+    margin: 15px auto;
+    /* border: 1px solid black; */
+}
+
+.profile_content input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    margin-top: 5px;
+    display: block;
+    width: 400px;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 1px solid #757575;
+}
+
+.profile_content input[type="file"] {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: transparent;
+}
+
+.profile_content .icon {
+    position: absolute;
+    top: 44%;
+    left: 8px;
+    /* bottom: 50%; */
+    transform: translateY(-23%);
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5)
+        /* margin-right: 40px; */
+}
+
+.profile_content .icon i {
+    font-size: 18px;
+    color: #333;
+}
+
+/* .profile_content .image i {
+    color: #fff;
+} */
+
+.profile_content input:focus {
+    outline: none;
+}
+
+/* LABEL ======================================= */
+
+.profile_content label {
+    font-size: 18px;
+    /* color: #fff; */
+    pointer-events: none;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}

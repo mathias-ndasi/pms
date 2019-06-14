@@ -1,68 +1,148 @@
-{% extends "account/base.html" %}
+{% extends "account/base.html" %} {% load i18n %} {% load static %}
+{% block head_title %}{% trans "Drug List" %}{% endblock %} {% block css %}
 
-{% load i18n %}
+<link rel="stylesheet" href="{% static 'drug/css/list.css' %}" />
+<link rel="stylesheet" href="{% static 'drug/css/search.css' %}" />
+<link rel="stylesheet" href="{% static 'base/css/footer.css' %}" />
 
-{% block head_title %}{% trans "Drug List" %}{% endblock %}
+{% endblock %}
 
 {% block content %}
 
-{% include 'search/snippets/search-form.html' %}<br>
-{% if query %}
+<div class="search">
+    {% include 'search/snippets/search-form.html' %}
+</div>
 
-<h3>Searched for {{ query }}</h3>
+<div class="list_header">
 
-{% else %}
+    <h1>Searched for {{ query }}</h1>
 
-{% include 'search/snippets/search-form.html' %}
+    {% if request.user.is_superuser %}
+    <p>Overall Drug count: {{ drug_count }}</p>
+    {% endif %}
 
-{% endif %}
-<p>Drug count: {{ drug_count }}</p>
-<br>
+</div>
 
-{% if user.is_admin %}
-<a href="{% url 'drug:register' %}">New Drug</a>
-{% endif %}
+<br />
 
-<div>
+
+<div class="main">
     {% if query %}
 
-    {% for drug in drugs %}
+    <div class="drug_container">
 
-    {% if drug.image.url is not null %}
-    <img src="{{ drug.image.url }}" alt="image">
-    {% endif %}
-    <h1><a href="{% url 'drug:detail' slug=drug.slug %}">{{ drug.brand_name }}</a></h1>
-    <h4>{{ drug.generic_name }}</h4>
+        {% for drug in drugs %}
 
-    <p>{{ drug.des|truncatewords:10 }}</p>
-    <p>{{ drug.category }}</p>
+        <div class="drug_item">
+            <span class="top"></span>
+            {% if drug.image.url is not null %}
+            <div class="image">
+                <img src="{{ drug.image.url }}" alt="image" />
+            </div>
+            {% endif %}
+            <div>
+                <p>
+                    Brand name: <span>{{ drug.brand_name }}</span>
+                </p>
+            </div>
+            {% if drug.generic_name %}
+            <div>
+                <p>
+                    Generic name: <span>{{ drug.generic_name }}</span>
+                </p>
+            </div>
+            {% endif %}
+            <div>
+                <p>
+                    Category: <span>{{ drug.category }}</span>
+                </p>
+            </div>
 
-    {% if drug.discount_price %}
-    <p>{{ drug.discount_price }} CFA</p>
-    {% else %}
-    <p>{{ drug.price }} CFA</p>
-    {% endif %}
+            {% if drug.discount_price %}
+            <div>
+                <p>
+                    Discount Price: <span>{{ drug.discount_price }} CFA</span>
+                </p>
+            </div>
+            <div>
+                <p>
+                    Price: <span class="cross">{{ drug.price }} CFA</span>
+                </p>
+            </div>
+            {% else %}
+            <div>
+                <p>
+                    Price: <span class="cross">{{ drug.price }} CFA</span>
+                </p>
+            </div>
+            {% endif %}
+            <a href="{% url 'drug:detail' slug=drug.slug %}"><span><i class="fa fa-eye"></i>View</span></a>
+            <span class="bottom"></span>
+        </div>
 
-    {% empty %}
+        {% empty %}
 
-    <h2>{{ query }} not available</h2>
+        <p class="not_present">The drug {{ query }} does not exist</p>
+
+    </div>
+
 
     {% endfor %}
 
     {% else %}
 
-    <h3>{{ query }} does not exist</h3>
+    <p class="not_present">The drug {{ query }} does not exist</p>
 
     {% endif %}
-
-    <a href="{% url 'drug:list' %}">Go back to Drug list</a>
-
 </div>
+
+<br />
+
+{% if is_paginated %}
+<ul class="pagination">
+
+    {% if page_obj.has_previous %}
+    <li class="arrow"><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-chevron-circle-left"></i></a>
+    </li>
+    {% else %}
+    <li class="disabled arrow"><span><i class="fa fa-chevron-circle-left"></i></span></li>
+    {% endif %}
+
+    {% for i in paginator.page_range %}
+
+    {% if page_obj.number == i %}
+    <li class="active">
+        <span>{{ i }} <span class="sr-only">(current)</span></span>
+    </li>
+    {% else %}
+    <li>
+        <a href="?page={{ i }}">{{ i }}</a>
+    </li>
+    {% endif %}
+
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <li class="arrow"><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-chevron-circle-right"></i></a>
+    </li>
+    {% else %}
+    <li class="disabled arrow"><span><i class="fa fa-chevron-circle-right"></i></span></li>
+    {% endif %}
+
+</ul>
+{% endif %}
 
 
 {% endblock %}
 
-
 {% block extra_body %}
+
+{% include "core/base/footer.html" %}
+
+{% endblock %}
+
+{% block js %}
+
+<script src="{% static 'drug/js/list.js' %}"></script>
 
 {% endblock %}

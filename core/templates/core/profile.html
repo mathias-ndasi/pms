@@ -1,27 +1,66 @@
 {% extends "base_dashboard.html" %} {% load i18n %} {% load static %}
-{% block title %}{% trans "List of Pharmacist" %}{% endblock %}
+{% block title %}{% trans "Profile Update" %}{% endblock %}
 
 {% block css %}
-
-
+<link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}" />
 {% endblock %}
 
 {% block content %}
 
-    <img src="{{ request.user.profile.image.url }}" alt="image">
 
-    <p>First Name: {{ request.user.first_name }}</p>
-    <p>Last Name: {{ request.user.last_name }}</p>
-    <p>Email: {{ request.user.email }}</p>
-    <p>Phone Number: {{ request.user.phone }}</p>
-    <p>Address: {{ request.user.address }}</p>
-    <p>Woks at: {{ request.user.pharmacyuser.works_at }}</p>
+<div class="profile_content">
+    <div class="profile_heading">
+        <h2>User Profile</h2>
+        <!-- <a href="#">Edit</a> -->
+    </div>
+    <div class="profile_one">
+        <img src="{{ request.user.profile.image.url }}" alt="image">
+        <p>{{ request.user.first_name }} {{ request.user.last_name }}</p>
+    </div>
+    <div class="profile_two">
+        <table>
+            <tbody>
+                <tr>
+                    <td>First Name: </td>
+                    <td>{{ request.user.first_name }}</td>
+                </tr>
+                <tr>
+                    <td>Last Name: </td>
+                    <td>{{ request.user.last_name }}</td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td>{{ request.user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Phone Number: </td>
+                    <td>{{ request.user.phone }}</td>
+                </tr>
+                <tr>
+                    <td>Address: </td>
+                    <td>{{ request.user.pharmacyuser.city }}</td>
+                </tr>
 
-    <a href="{% url 'core:profile_update' %}">Edit</a>
+                {% if request.user.is_admin or request.user.is_pharmacist %}
+
+                <tr>
+                    <td>Works At: </td>
+                    <td>{{ request.user.pharmacyuser.works_at }} pharmacy in {{ request.user.pharmacyuser.city }} </td>
+                </tr>
+
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="profile_three">
+        <a class="button" href="{% url 'core:profile_update' %}"><span><i class="fa fa-gear"></i></span> Edit</a>
+    </div>
+</div>
 
 {% endblock %}
 
 {% block js %}
 
+<script src="{% static 'base/js/button.js' %}"></script>
 
 {% endblock %}

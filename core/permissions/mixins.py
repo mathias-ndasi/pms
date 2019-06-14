@@ -54,4 +54,3 @@ def pharmacist_required_permission(function):
             return function(request, *args, **kwargs)
 
     return pharmacist_permission
-

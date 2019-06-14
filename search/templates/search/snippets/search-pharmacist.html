@@ -1,0 +1,6 @@
+<form method="get" action="{% url 'search:pharmacist_list' %}">
+    <input type="text" placeholder="Search Pharmacist" name="q" value="{{ request.GET.q }}" autocomplete="off">
+    <button type="submit">
+        <i class="fa fa-search"></i>
+    </button>
+</form>

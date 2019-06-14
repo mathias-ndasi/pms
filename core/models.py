@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import ugettext_lazy as _
@@ -48,6 +49,22 @@ class Pharmacy(models.Model):
         return self.name
 
 
+class UserQueryset(models.query.QuerySet):
+
+    def search_pharmacist(self, query):
+        lookups = Q(email__icontains=query) | Q(first_name__icontains=query) | Q(
+            last_name__icontains=query)
+        return self.filter(lookups).distinct()
+
+
+class UserManager(models.Manager):
+    def get_queryset(self):
+        return UserQueryset(self.model, using=self._db)
+
+    def search_pharmacist(self, query):
+        return self.get_queryset().all().search_pharmacist(query)
+
+
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     is_pharmacist = models.BooleanField(default=False)
@@ -62,6 +79,8 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    objects = UserManager()
 
     class Meta:
         verbose_name = _('user')

@@ -1,0 +1,158 @@
+h1 {
+    text-align: center;
+    margin: 40px auto 30px auto;
+    color: #ccc;
+}
+
+.order_content {
+    color: #ccc;
+}
+
+.order_content table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.order_content table thead {
+    /* border: 1px solid green; */
+}
+
+.order_content table thead th {
+    height: 80px;
+}
+
+/* table body starts here */
+.order_content table tbody tr {
+    height: 70px;
+}
+
+.order_content table tbody tr:nth-of-type(even) {
+    background: #44445877;
+}
+
+.order_content table .qty {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.order_content table .qty a {
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+    margin: auto 10px;
+    /* padding: 10px; */
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(63, 202, 63, 0.575);
+}
+
+.total {
+    margin-top: 50px;
+}
+
+.total p {
+    font-size: 22px;
+}
+
+.continue {
+    margin-top: 50px;
+}
+
+
+/* buttons */
+
+.button {
+    display: inline-block;
+    text-decoration: none;
+    margin: 0.3em;
+    padding: 13px 20px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--default-color);
+}
+
+.button span {
+    margin-right: 5px;
+}
+
+.ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .25);
+    border-radius: 100%;
+    transform: scale(0.2);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-animation: ripple .75s ease-out;
+    -moz-animation: ripple .75s ease-out;
+    animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+
+.order_content table td .red {
+    background: rgba(211, 11, 11, 0.555);
+    padding: 13px;
+}
+
+.order_content table .discount {
+    position: relative;
+}
+
+.order_content table #discount {
+    position: absolute;
+    top: 7px;
+    left: 18px;
+    font-size: 11px;
+    border-radius: 10px;
+    padding: 2px 5px;
+    background: rgba(63, 202, 63, 0.555);
+}

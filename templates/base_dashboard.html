@@ -27,7 +27,8 @@
             <img src="{% static 'accounts/img/default_profile.jpg' %}" alt="profile_image">
             <div class="info">
                 <h3><a href="dashboard-profile.html">{{ request.user.first_name }}</a></h3>
-                <p>Login as {% if request.user.is_admin %} Admin with Admin Dashboard {% else %} Pharmacist with Pharmacist Dashboard {% endif %}</p>
+                <p>Login as {% if request.user.is_admin %} Admin with Admin Dashboard {% else %} Pharmacist with
+                    Pharmacist Dashboard {% endif %}</p>
             </div>
         </div>
 
@@ -91,7 +92,7 @@
                     <li>
                         <a class="" href="{% url 'account_change_password' %}">Change Password</a>
                     </li>
-                    <li><a href="dashboard-change-email.html">Reset Email</a></li>
+                    <!-- <li><a href="{%  url 'account_email' %}">Reset Email</a></li> -->
                 </ul>
             </li>
         </ul>
@@ -100,16 +101,58 @@
     <section id="contents">
         <nav class="navbar navbar-default">
             <div class="navbar-header mynav">
-                <a class="navbar-brand" href="student_dashboard.html"><span class="main-color"><i
+                <a class="navbar-brand" href="{% url 'home' %}"><span class="main-color"><i
                             class="fa fa-home fa-fw"></i></span>Dashboard</a>
 
                 <div class="count count-one">
                     <p>Total Drugs: 5</p>
                 </div>
 
-                <div class="logout">
-                    <a href="{% url 'account_logout' %}">Logout</a>
-                    <span class="bar"></span>
+                <div class="notify_container">
+
+                    {% if request.user.is_admin or request.user.is_pharmacist %}
+
+                    <!-- notication bell -->
+                    <div class="noti_conatiner">
+                        <ul>
+                            <li id="noti_Container">
+                                <div id="noti_Counter"></div>
+                                <!--SHOW NOTIFICATIONS COUNT.-->
+
+                                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                                <div id="noti_Button"><i class="fa fa-bell"></i></div>
+
+                                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                                <div id="notifications">
+                                    <h3>Notifications</h3>
+
+                                    {% if messages %}
+                                    <div class="messages">
+                                        {% if messages %}
+                                        <ul>
+                                            {% for message in messages %}
+                                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important:
+                                                {% endif %}
+                                                {{ message|safe }}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {% endif %}
+
+                    <div class="logout">
+                        <a href="{% url 'account_logout' %}">Logout</a>
+                        <span class="bar"></span>
+                    </div>
                 </div>
 
                 <span class="drop-bar" id="drop_bar"><i class="fa fa-bars"></i></span>
@@ -175,7 +218,7 @@
                             <li>
                                 <a class="" href="{% url 'account_change_password' %}">Change Password</a>
                             </li>
-                            <li><a href="dashboard-change-email.html">Reset Email</a></li>
+                            <!-- <li><a href="{% url 'account_email' %}">Reset Email</a></li> -->
                         </ul>
                     </li>
                     <li>
@@ -201,8 +244,10 @@
     </section>
 
     <script src="{% static 'base/js/jquery.js' %}"></script>
+    <script src="{% static 'base/js/notification_bell.js' %}"></script>
     <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
     <script src="{% static 'dashboard/js/main_dashboard.js' %}"></script>
+    <script src="{% static 'base/js/base.js' %}"></script>
 
     {% block js %}
 

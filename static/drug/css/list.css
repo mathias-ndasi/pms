@@ -1,11 +1,24 @@
 .drug_container {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     display: flex;
     flex-wrap: wrap;
+    margin: 20px 20px auto 20px;
+}
+
+.list_header {
+    text-align: center;
+}
+
+.list_header h1 {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.list_header p {
+    margin-top: 8px;
 }
 
 .drug_container .drug_item {
-    width: 300px;
+    width: 290px;
     /* height: 400 px; */
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -38,7 +51,7 @@
     /* width: 100px; */
     height: 250px;
     margin-bottom: 10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     margin: auto;
 }
 

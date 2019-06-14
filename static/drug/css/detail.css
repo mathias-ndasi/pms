@@ -1,0 +1,160 @@
+.list_header {
+    text-align: center;
+    /* border: 1px solid red; */
+}
+
+.list_header h1 {
+    color: rgba(0, 0, 0, 0.6);
+    margin: 30px auto;
+}
+
+.list_header p {
+    /* margin-top: 1px; */
+    /* color: rgba */
+}
+
+.drug_container {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.drug_container .edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.drug_container .edit a {
+    display: block;
+    text-decoration: none;
+    /* padding:  */
+}
+
+.drug_container .edit .red {
+    background: rgba(189, 12, 12, 0.904);
+}
+
+.drug_container .content {
+    /* border: 1px solid red; */
+    display: flex;
+    /* flex-flow: column; */
+    justify-content: center;
+    /* align-items: center; */
+    margin: 20px auto 50px auto;
+}
+
+/* drug image */
+.drug_container .img {
+    width: 600px;
+    margin-right: 100px;
+    /* display: flex;
+    align-items: flex-start;
+    justify-content: flex-start; */
+}
+
+/* drug item */
+.drug_container .content .item {
+    /* border: 1px solid red; */
+    max-width: 420px;
+}
+
+.drug_container .content .item div {
+    margin-bottom: 20px;
+}
+
+.drug_container .content .item h4 {
+    background: rgba(51, 51, 51, 0.788);
+    color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.drug_container .content .item p {
+    line-height: 26px;
+}
+
+/* cart links */
+.drug_container .content .cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+
+/* buttons */
+.drug_container .button {
+    display: inline-block;
+    text-decoration: none;
+    margin: 0.3em;
+    padding: 13px 30px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    border: none;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--default-color);
+}
+
+.drug_container .button span {
+    margin-right: 5px;
+}
+
+.drug_container .ripple {
+    position: absolute;
+    background: rgba(0, 0, 0, .25);
+    border-radius: 100%;
+    transform: scale(0.2);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-animation: ripple .75s ease-out;
+    -moz-animation: ripple .75s ease-out;
+    animation: ripple .75s ease-out;
+}
+
+@-webkit-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
