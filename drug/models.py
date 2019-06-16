@@ -127,7 +127,7 @@ class Drugs(models.Model):
         return reverse('drug:add_to_cart', kwargs={'slug': self.slug})
 
     def get_absolute_url(self):
-        return reverse("drug:detail", kwargs={"slug": self.slug})
+        return reverse('drug:detail', kwargs={'slug': self.slug})
 
     # def get_edit_url(self):
     #     return reverse("drug:detail", kwargs={"slug": self.slug})

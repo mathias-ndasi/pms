@@ -81,8 +81,8 @@
                 </div>
                 <div class="group image">
                     <label id="true" for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
-                    <input type="file" name="image" accept="image/*" id="id_image">
-                    <!-- {{ form.image }} -->
+                    <!-- <input type="file" name="image" accept="image/*" id="id_image"> -->
+                    {{ form.image }}
                     <span class="icon"><i class="fa fa-photo"></i></span>
                     <div class="alert_error">
                         {{ form.image.errors }}

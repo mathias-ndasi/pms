@@ -137,23 +137,6 @@ class DrugEdit(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.UpdateV
             raise Http404('What error is this one')
         return instance
 
-    # def form_valid(self, form):
-    #     self.object = form.save(commit=False)
-    #   # Any manual settings go here
-    #     self.object.save()
-    #     request = self.request
-    #     messages.success(request, 'Drug was successfully Edited!!!')
-    #     return HttpResponseRedirect(self.object.get_edit_url())
-        # return super().form_valid(self)
-
-    # def form_valid(self, form):
-    #     instance = form.save(commit=False)
-    #     instance.slug = form.cleaned_data['slug']
-    #     # Any manual settings go here
-    #     instance.save()
-    #     slug = instance.slug
-    #     return redirect('drug:detail', slug=slug)
-
 
 class DrugDelete(LoginRequiredMixin, AdminPermissionRequiredMixin, generic.DeleteView):
     model = Drugs
