@@ -1,246 +1,279 @@
-{% load i18n %}
-{% load static %}
+{% load i18n %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'accounts/css/font-awesome.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'accounts/css/font-awesome.min.css' %}"
+    />
     <link rel="stylesheet" href="{% static 'dashboard/css/nav.css' %}" />
-    <link rel="stylesheet" href="{% static 'dashboard/css/main_dashboard.css' %}" />
-    <link rel="stylesheet" href="{% static 'base/css/datepicker.css' %}">
+    <link
+      rel="stylesheet"
+      href="{% static 'dashboard/css/main_dashboard.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'base/css/datepicker.css' %}" />
 
-    {% block css %}
+    {% block css %} {% endblock %}
+  </head>
 
-    {% endblock %}
-</head>
-
-<body>
-
+  <body>
     <aside class="side-nav" id="show-side-navigation1">
-        <div class="heading">
-            <img src="{% static 'accounts/img/default_profile.jpg' %}" alt="profile_image">
-            <div class="info">
-                <h3><a href="{% url 'core:profile' name=request.user.first_name %}">{{ request.user.first_name }}</a></h3>
-                <p>Login as {% if request.user.is_admin %} Admin with Admin Dashboard {% else %} Pharmacist with
-                    Pharmacist Dashboard {% endif %}</p>
-            </div>
+      <div class="heading">
+        {% if request.user.profile.image.url %}
+        <img src="{{ request.user.profile.image.url }}" alt="profile_image" />
+        {% else %}
+        <img
+          src="{% static 'accounts/img/default_profile.jpg' %}"
+          alt="profile_image"
+        />
+        {% endif %}
+        <div class="info">
+          <h3>
+            <a href="{% url 'core:profile' name=request.user.first_name %}">{{
+              request.user.first_name
+            }}</a>
+          </h3>
+          <p>
+            Login as {% if request.user.is_admin %} Admin with Admin Dashboard
+            {% else %} Pharmacist with Pharmacist Dashboard {% endif %}
+          </p>
         </div>
+      </div>
 
-        <div class="search">
-            {% include 'search/snippets/search-form.html' %}
-            <!-- <i class="fa fa-search"></i> -->
-        </div>
+      <div class="search">
+        {% include 'search/snippets/search-form.html' %}
+        <!-- <i class="fa fa-search"></i> -->
+      </div>
 
-        <ul class="categories">
+      <ul class="categories">
+        <li>
+          <i class="fa fa-medkit"></i>
+          <a href="#" class="arrow"> Drugs</a>
+          <ul class="side-nav-dropdown">
+            {% if request.user.is_admin %}
 
+            <li><a href="{% url 'drug:register' %}">New Drug</a></li>
             <li>
-                <i class="fa fa-medkit"></i>
-                <a href="#" class="arrow"> Drugs</a>
-                <ul class="side-nav-dropdown">
+              <a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}"
+                >My Drugs</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}"
+                >View expired Drugs</a
+              >
+            </li>
 
-                    {% if request.user.is_admin %}
+            {% endif %}
 
-                    <li><a href="{% url 'drug:register' %}">New Drug</a></li>
-                    <li><a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}">My Drugs</a></li>
-                    <li><a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}">View expired Drugs</a></li>
+            <li><a href="{% url 'drug:list' %}">All Drugs</a></li>
+          </ul>
+        </li>
 
+        {% if request.user.is_pharmacist %}
+
+        <li>
+          <i class="fa fa-shopping-cart"></i>
+          <a href="{% url 'drug:order_summary' %}">View Cart</a>
+        </li>
+
+        {% endif %} {% if request.user.is_admin %}
+
+        <li>
+          <i class="fa fa-hospital-o"></i>
+          <a href="{% url 'core:pharmacy_create' %}">Register Pharmacy</a>
+        </li>
+
+        <li>
+          <i class="fa fa-group"></i>
+          <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}"
+            >View list of Pharmacists</a
+          >
+        </li>
+
+        {% endif %}
+
+        <li>
+          <i class="fa fa-user"></i>
+          <a href="{% url 'core:profile' name=request.user.first_name %}"
+            >Profile</a
+          >
+        </li>
+
+        <li>
+          <i class="fa fa-gear"></i>
+          <a href="#" class="arrow"> Settings</a>
+          <ul class="side-nav-dropdown">
+            <li>
+              <a class="" href="{% url 'account_change_password' %}"
+                >Change Password</a
+              >
+            </li>
+            <!-- <li><a href="{%  url 'account_email' %}">Reset Email</a></li> -->
+          </ul>
+        </li>
+      </ul>
+    </aside>
+
+    <section id="contents">
+      <nav class="navbar navbar-default">
+        <div class="navbar-header mynav">
+          <a class="navbar-brand" href="{% url 'home' %}"
+            ><span class="main-color"><i class="fa fa-home fa-fw"></i></span
+            >Dashboard</a
+          >
+
+          <div class="count count-one">
+            <p>Total Drugs: 5</p>
+          </div>
+
+          <div class="notify_container">
+            {% if request.user.is_admin or request.user.is_pharmacist %}
+
+            <!-- notication bell -->
+            <div class="noti_conatiner">
+              <ul>
+                <li id="noti_Container">
+                  <div id="noti_Counter"></div>
+                  <!--SHOW NOTIFICATIONS COUNT.-->
+
+                  <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                  <div id="noti_Button"><i class="fa fa-bell"></i></div>
+
+                  <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                  <div id="notifications">
+                    <h3>Notifications</h3>
+
+                    {% if messages %}
+                    <div class="messages">
+                      {% if messages %}
+                      <ul>
+                        {% for message in messages %}
+                        <li
+                          {%
+                          if
+                          message.tags
+                          %}
+                          class="{{ message.tags }}"
+                          {%
+                          endif
+                          %}
+                        >
+                          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR
+                          %}Important: {% endif %}
+                          {{ message | safe }}
+                        </li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                    </div>
                     {% endif %}
+                  </div>
+                </li>
+              </ul>
+            </div>
 
-                    <li><a href="{% url 'drug:list' %}">All Drugs</a></li>
+            {% endif %}
 
-                </ul>
+            <div class="logout">
+              <a href="{% url 'account_logout' %}">Logout</a>
+              <span class="bar"></span>
+            </div>
+          </div>
+
+          <span class="drop-bar" id="drop_bar"><i class="fa fa-bars"></i></span>
+        </div>
+
+        <div class="drop_aside">
+          <div class="count count-two">
+            <p>Total Drugs: 5</p>
+          </div>
+
+          <div class="search">
+            {% include 'search/snippets/search-form.html' %}
+          </div>
+
+          <ul class="categories">
+            <li>
+              <i class="fa fa-medkit"></i>
+              <a href="#" class="arrow"> Drugs</a>
+              <ul class="resize-nav-dropdown">
+                {% if request.user.is_admin %}
+
+                <li><a href="{% url 'drug:register' %}">New Drug</a></li>
+                <li>
+                  <a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}"
+                    >My Drugs</a
+                  >
+                </li>
+                <li>
+                  <a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}"
+                    >View expired Drugs</a
+                  >
+                </li>
+
+                {% endif %}
+
+                <li><a href="{% url 'drug:list' %}">All Drugs</a></li>
+              </ul>
             </li>
 
             {% if request.user.is_pharmacist %}
 
             <li>
-                <i class="fa fa-shopping-cart"></i>
-                <a href="{% url 'drug:order_summary' %}">View Cart</a>
+              <i class="fa fa-shopping-cart"></i>
+              <a href="{% url 'drug:order_summary' %}">View Cart</a>
             </li>
 
-            {% endif %}
-
-            {% if request.user.is_admin %}
+            {% endif %} {% if request.user.is_admin %}
 
             <li>
-                <i class="fa fa-hospital-o"></i>
-                <a href="{% url 'core:pharmacy_create' %}">Register Pharmacy</a>
-            </li>
-
-            <li>
-                <i class="fa fa-group"></i>
-                <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}">View list of Pharmacists</a>
+              <i class="fa fa-group"></i>
+              <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}"
+                >View list of Pharmacists</a
+              >
             </li>
 
             {% endif %}
 
             <li>
-                <i class="fa fa-user"></i>
-                <a href="{% url 'core:profile' name=request.user.first_name %}">Profile</a>
+              <i class="fa fa-user"></i>
+              <a href="{% url 'core:profile' name=request.user.first_name %}"
+                >Profile</a
+              >
             </li>
 
             <li>
-                <i class="fa fa-gear"></i>
-                <a href="#" class="arrow"> Settings</a>
-                <ul class="side-nav-dropdown">
-                    <li>
-                        <a class="" href="{% url 'account_change_password' %}">Change Password</a>
-                    </li>
-                    <!-- <li><a href="{%  url 'account_email' %}">Reset Email</a></li> -->
-                </ul>
+              <i class="fa fa-gear"></i>
+              <a href="#" class="arrow"> Settings</a>
+              <ul class="resize-nav-dropdown">
+                <li>
+                  <a class="" href="{% url 'account_change_password' %}"
+                    >Change Password</a
+                  >
+                </li>
+                <!-- <li><a href="{% url 'account_email' %}">Reset Email</a></li> -->
+              </ul>
             </li>
-        </ul>
-    </aside>
+            <li>
+              <i class="fa fa-sign-out"></i>
+              <a href="{% url 'account_logout' %}">Logout</a>
+              <!-- <span class="bar"></span> -->
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-    <section id="contents">
-        <nav class="navbar navbar-default">
-            <div class="navbar-header mynav">
-                <a class="navbar-brand" href="{% url 'home' %}"><span class="main-color"><i
-                            class="fa fa-home fa-fw"></i></span>Dashboard</a>
-
-                <div class="count count-one">
-                    <p>Total Drugs: 5</p>
-                </div>
-
-                <div class="notify_container">
-
-                    {% if request.user.is_admin or request.user.is_pharmacist %}
-
-                    <!-- notication bell -->
-                    <div class="noti_conatiner">
-                        <ul>
-                            <li id="noti_Container">
-                                <div id="noti_Counter"></div>
-                                <!--SHOW NOTIFICATIONS COUNT.-->
-
-                                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                                <div id="noti_Button"><i class="fa fa-bell"></i></div>
-
-                                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                                <div id="notifications">
-                                    <h3>Notifications</h3>
-
-                                    {% if messages %}
-                                    <div class="messages">
-                                        {% if messages %}
-                                        <ul>
-                                            {% for message in messages %}
-                                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important:
-                                                {% endif %}
-                                                {{ message|safe }}
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                        {% endif %}
-                                    </div>
-                                    {% endif %}
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {% endif %}
-
-                    <div class="logout">
-                        <a href="{% url 'account_logout' %}">Logout</a>
-                        <span class="bar"></span>
-                    </div>
-                </div>
-
-                <span class="drop-bar" id="drop_bar"><i class="fa fa-bars"></i></span>
-            </div>
-
-            <div class="drop_aside">
-
-                <div class="count count-two">
-                    <p>Total Drugs: 5</p>
-                </div>
-
-                <div class="search">
-                    {% include 'search/snippets/search-form.html' %}
-                </div>
-
-                <ul class="categories">
-
-                    <li>
-                        <i class="fa fa-medkit"></i>
-                        <a href="#" class="arrow"> Drugs</a>
-                        <ul class="resize-nav-dropdown">
-
-                            {% if request.user.is_admin %}
-
-                            <li><a href="{% url 'drug:register' %}">New Drug</a></li>
-                            <li><a href="{% url 'drug:pharmacy_drugs' pharmacy=pharmacy %}">My Drugs</a></li>
-                            <li><a href="{% url 'drug:expired_drugs' pharmacy=pharmacy %}">View expired Drugs</a></li>
-
-                            {% endif %}
-
-                            <li><a href="{% url 'drug:list' %}">All Drugs</a></li>
-
-                        </ul>
-                    </li>
-
-                    {% if request.user.is_pharmacist %}
-
-                    <li>
-                        <i class="fa fa-shopping-cart"></i>
-                        <a href="{% url 'drug:order_summary' %}">View Cart</a>
-                    </li>
-
-                    {% endif %}
-
-                    {% if request.user.is_admin %}
-
-                    <li>
-                        <i class="fa fa-group"></i>
-                        <a href="{% url 'core:pharmacist_list' pharmacy=pharmacy %}">View list of Pharmacists</a>
-                    </li>
-
-                    {% endif %}
-
-                    <li>
-                        <i class="fa fa-user"></i>
-                        <a href="{% url 'core:profile' name=request.user.first_name %}">Profile</a>
-                    </li>
-
-                    <li>
-                        <i class="fa fa-gear"></i>
-                        <a href="#" class="arrow"> Settings</a>
-                        <ul class="resize-nav-dropdown">
-                            <li>
-                                <a class="" href="{% url 'account_change_password' %}">Change Password</a>
-                            </li>
-                            <!-- <li><a href="{% url 'account_email' %}">Reset Email</a></li> -->
-                        </ul>
-                    </li>
-                    <li>
-                        <i class="fa fa-sign-out"></i>
-                        <a href="{% url 'account_logout' %}">Logout</a>
-                        <!-- <span class="bar"></span> -->
-                    </li>
-                </ul>
-            </div>
-
-        </nav>
-
-
-        <!-- this is where i'm starting -->
-        <main>
-
-            {% block content %}
-
-            {% endblock %}
-
-        </main>
-
+      <!-- this is where i'm starting -->
+      <main>
+        {% block content %} {% endblock %}
+      </main>
     </section>
 
     <script src="{% static 'base/js/jquery.js' %}"></script>
@@ -249,10 +282,6 @@
     <script src="{% static 'dashboard/js/main_dashboard.js' %}"></script>
     <script src="{% static 'base/js/base.js' %}"></script>
 
-    {% block js %}
-
-    {% endblock %}
-
-</body>
-
+    {% block js %} {% endblock %}
+  </body>
 </html>

@@ -1,0 +1,5 @@
+/media
+*.vscode
+/venv
+*.idea
+/static

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'djmoney',
+    'phonenumber_field',
 
     # my apps
     'core.apps.CoreConfig',
